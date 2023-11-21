@@ -12,7 +12,7 @@ insert_final_newline = true
 
 # Set indent style to spaces
 [*.py]
-indent_style = space
+indent_style = tab
 indent_size = 4
 
 # Tab indentation (no spaces)
@@ -21,6 +21,6 @@ indent_style = tab
 
 # Matches the exact files either at the root of the project or in any directory
 [{*,.*}]
-indent_style = space
-indent_size = 2
+indent_style = tab
+indent_size = 4
 
