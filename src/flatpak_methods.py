@@ -14,9 +14,9 @@ def install_flatpak_packages(packages):
         
         
 if __name__ == "__main__":
-    result = subprocess.run(["flatpak", "list"], stdout=subprocess.PIPE)
-    result = subprocess.run([ 'tr', "--squeeze-repeats", '"\t"', result.stdout], stdout=subprocess.PIPE)
-    result = subprocess.run(['cut', "-d$'\t'", '-f2' , result.stdout], stdout=subprocess.PIPE)
+    command = "tr < flatpak list -s '\t' | cut -d$'\t' -f1"
+    result = subprocess.Popen(command)
+    
     for i in str(result.stdout).split("\\n"):
         print(i)
         
