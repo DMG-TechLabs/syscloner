@@ -1,3 +1,4 @@
+import get_methods
 import install_methods
 
 #for line in get.get_apt_packages():
