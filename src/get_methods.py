@@ -6,6 +6,6 @@ def get_apt_packages():
     return packages.split("\\n")
 
 def get_gnome_extensions():
-    result = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
-    result = str(result.stdout).replace("b'", "").replace("'", "")
-    return result.split("\\n")
+    extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
+    extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
+    return extensions.split("\\n")
