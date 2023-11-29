@@ -1,9 +1,5 @@
 import get_methods
 import install_methods
 
-# for line in get_methods.get_apt_packages():
-#     print(line)
-    
-for line in get_methods.get_gnome_extensions():
-    print(line)
-
+# exts = get_methods.get_gnome_extensions()
+# install_methods.install_gnome_extensions(exts)

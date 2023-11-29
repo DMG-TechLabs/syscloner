@@ -7,8 +7,8 @@ def get_packages(source):
 
 
 def get_apt_packages():
-    result = subprocess.run(['./scripts/apt.sh'], stdout=subprocess.PIPE)
-    return result
+    result = subprocess.run(['sudo', './scripts/apt.sh'], stdout=subprocess.PIPE)
+    return result.stdout
 
 
 def get_gnome_extensions():
