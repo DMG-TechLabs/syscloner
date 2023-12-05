@@ -7,8 +7,7 @@ def get_packages(source):
 
 
 def get_apt_packages():
-    result = subprocess.run(['./scripts/apt.sh'], stdout=subprocess.PIPE)
-    return result.stdout
+    return get_packages("apt")
 
 
 def get_gnome_extensions():
@@ -18,10 +17,8 @@ def get_gnome_extensions():
 
 
 def get_flatpak_packages():
-    result = subprocess.run(['./scripts/flatpak.sh'], stdout=subprocess.PIPE)
-    return result.stdout
+    return get_packages("flatpak")
 
 
 def get_snap_packages():
-    result = subprocess.run(['./scripts/snap.sh'], stdout=subprocess.PIPE)
-    return result.stdout
+    return get_packages("snap")
