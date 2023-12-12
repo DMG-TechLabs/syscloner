@@ -8,7 +8,7 @@
 4.  Snap packages <>
 5.  Shell themes <
 6.  Flatpak packages <> 
-7.  Apt repositories <>
+7.  Apt repositories <
 8.  Corn jobs
 9.  Shorcuts (with System Settings)
 10. Configs <

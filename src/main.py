@@ -1,9 +1,9 @@
+from constants import GNOME, UBUNTU
 import get_methods
-import install_methods
+import file_builder
 
-# exts = get_methods.get_gnome_extensions()
-# install_methods.install_gnome_extensions(exts)
+builder = file_builder.FileBuilder()
 
-print(get_methods.get_apt_packages(), "\n\n\n")
-print(get_methods.get_snap_packages(), "\n\n\n")
-print(get_methods.get_flatpak_packages(), "\n\n\n")
+# builder.set_apt_pkgs(get_methods.get_apt_packages())
+
+builder.build("kdesp73", UBUNTU, GNOME)
