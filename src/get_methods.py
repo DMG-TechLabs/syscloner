@@ -13,6 +13,9 @@ def get_apt_packages():
     list.remove("Listing...")
     return list
 
+def get_apt_repos():
+    return get_packages("apt_repos")
+
 
 def get_gnome_extensions():
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
