@@ -90,8 +90,8 @@ class FileBuilder:
         contents += SEPARATOR + "\n\n\n"
 
         contents += GNOME_EXTENSIONS + "\n"
-        for package in get_methods.get_gnome_extensions():
-            contents += package + "\n"
+        for extension in get_methods.get_gnome_extensions():
+            contents += extension + "\n"
         contents += SEPARATOR + "\n\n\n"
 
         contents += REPOSITORY_KEYS + "\n"
@@ -101,12 +101,26 @@ class FileBuilder:
         contents += SEPARATOR + "\n\n\n"
 
         contents += SHELL_THEMES + "\n"
+        try:
+            contents += str(get_methods.get_shell_themes())
+        except FileNotFoundError:
+            contents += "Error\n"
+            print("Error with shell themes")
         contents += SEPARATOR + "\n\n\n"
 
         contents += APT_REPOSITORIES + "\n"
+        for repo in get_methods.get_apt_repos():
+            contents += repo + "\n"
         contents += SEPARATOR + "\n\n\n"
 
         contents += SSH + "\n"
+        try:
+            for pair in get_methods.get_ssh_keys():
+                contents += pair[0] + "\n"
+                contents += pair[1] + "\n\n"
+        except FileNotFoundError:
+            print("Error with ssh")
+            contents += "Error\n"
         contents += SEPARATOR + "\n\n\n"
 
         contents += CONFIGS + "\n"
