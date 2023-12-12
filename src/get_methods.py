@@ -14,7 +14,8 @@ def get_apt_packages():
     return list
 
 def get_apt_repos():
-    return get_packages("apt_repos")
+    apt_repos = get_packages("apt_repos").split("\\n")
+    return apt_repos
 
 
 def get_gnome_extensions():
