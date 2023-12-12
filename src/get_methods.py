@@ -17,6 +17,8 @@ def get_gnome_extensions():
     extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
     return extensions.split("\\n")
 
+# def get_ssh_keys():
+
 
 def get_flatpak_packages():
     list = get_packages("flatpak").split("\\n")
@@ -28,3 +30,7 @@ def get_snap_packages():
     list = get_packages("snap").split("\\n")
     list.remove('')
     return list
+
+
+def get_apt_repos():
+    return get_packages("apt_repos")
