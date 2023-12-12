@@ -10,7 +10,7 @@
 6.  Flatpak packages <> 
 7.  Apt repositories <>
 8.  Corn jobs
-9.  Shorcuts <>
+9.  Shorcuts (with System Settings)
 10. Configs <
 11. Github repos
 12. SSH keys <
@@ -24,6 +24,17 @@
 
 At: ~/.config/dconf/user
 
+## File Name And Extension
 
+Extension: cvf (Config Vault File)
+
+name_gn_ub.cvf
+
+| Info      | Short |
+|-----------|-------|
+| Gnome     | gn    |
+| Ubuntu    | ub    |
+| KDE       | kd    |
+...
 
 
