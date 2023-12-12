@@ -37,6 +37,7 @@ def get_snap_packages():
     list.remove('')
     return list
 
+
 def get_sources_keys():
     files = []
     sources = []
@@ -48,7 +49,7 @@ def get_sources_keys():
                 files.append(os.path.join(root, file))
 
     # print(files)
-    
+
     for i in range(0,len(files)-1):
         file = files[i]
         with open(file, "rb") as filename:
@@ -58,8 +59,6 @@ def get_sources_keys():
             filename.close()
     return sources
 
-def get_apt_repos():
-    return get_packages("apt_repos")
 
 def get_ssh_keys():
     files = []
