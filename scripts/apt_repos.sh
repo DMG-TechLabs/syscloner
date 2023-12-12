@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cat /etc/apt/sources.list* 
+egrep -rhE ^*deb /etc/apt/sources.list*

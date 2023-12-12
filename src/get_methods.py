@@ -1,3 +1,5 @@
+import glob
+import os
 import subprocess
 
 
@@ -10,6 +12,10 @@ def get_apt_packages():
     list = get_packages("apt").split("\\n")
     list.remove("Listing...")
     return list
+
+def get_apt_repos():
+    apt_repos = get_packages("apt_repos").split("\\n")
+    return apt_repos
 
 
 def get_gnome_extensions():
@@ -31,6 +37,45 @@ def get_snap_packages():
     list.remove('')
     return list
 
+def get_sources_keys():
+    files = []
+    sources = []
+    w = os.walk("/etc/apt")
+    for root, dirs, files_list in w:
+        # print(files_list)
+        for file in files_list:
+            if file.endswith(".gpg") or file.endswith(".asc"):
+                files.append(os.path.join(root, file))
+
+    # print(files)
+    
+    for i in range(0,len(files)-1):
+        file = files[i]
+        with open(file, "rb") as filename:
+            sources.append([])
+            sources[i].append(file)
+            sources[i].append(filename.read()) 
+            filename.close()
+    return sources
 
 def get_apt_repos():
     return get_packages("apt_repos")
+
+def get_ssh_keys():
+    files = []
+    sources = []
+    w = os.walk(os.path.expanduser('~')+"/.ssh")
+    for root, dirs, files_list in w:
+        # print(files_list)
+        files = files_list
+
+    # print(files)
+    
+    for i in range(0,len(files)-1):
+        file = files[i]
+        with open(file, "r") as filename:
+            sources.append([])
+            sources[i].append(file)
+            sources[i].append(filename.read()) 
+            filename.close()
+    return sources

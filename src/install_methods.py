@@ -1,3 +1,5 @@
+from os import walk
+import os
 import subprocess
 
 
@@ -20,3 +22,9 @@ def install_apt_packages(packages):
 
 def install_gnome_extensions(extensions):
     install_packages("gnome-extensions", extensions)
+
+def install_keys(files, write_mode):
+    for file in files:
+        with open(file, write_mode) as filename:
+            filename.write(file[1])
+            filename.close()
