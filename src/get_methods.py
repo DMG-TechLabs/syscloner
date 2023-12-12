@@ -11,6 +11,7 @@ def get_packages(source):
 def get_apt_packages():
     list = get_packages("apt").split("\\n")
     list.remove("Listing...")
+    list.remove('')
     return list
 
 def get_apt_repos():
@@ -21,7 +22,9 @@ def get_apt_repos():
 def get_gnome_extensions():
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
     extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
-    return extensions.split("\\n")
+    list = extensions.split("\\n")
+    list.remove('')
+    return list
 
 # def get_ssh_keys():
 

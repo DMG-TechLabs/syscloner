@@ -4,6 +4,10 @@
 
 
 
+{System Settings}
+{/}
+
+
 {Apt Packages}
 0ad-data-common
 0ad-data
@@ -3472,5 +3476,61 @@ zoom
 zsh-common
 zsh
 zstd
-
 {/}
+
+
+{Snap Packages}
+bare
+code
+core
+core18
+core20
+core22
+cups
+firefox
+gimp
+gnome-3-28-1804
+gnome-3-34-1804
+gnome-3-38-2004
+gnome-42-2204
+gnome-boxes
+gtk-common-themes
+gtk2-common-themes
+kicad
+lsd
+netbeans
+root-framework
+snap-store
+spotify
+vlc
+{/}
+
+
+{Flatpak Packages}
+Extension Manager
+Black Box
+Mesa
+Mesa (Extra)
+openh264
+GNOME Application Platform version 43
+GNOME Application Platform version 44
+Yaru-dark Gtk Theme
+{/}
+
+
+{Gnome Extensions}
+extension-list@tu.berry
+add-to-desktop@tommimon.github.com
+user-theme@gnome-shell-extensions.gcampax.github.com
+unlockDialogBackground@sun.wxg@gmail.com
+forge@jmmaranan.com
+noannoyance@sindex.com
+no_activities@yaya.cout
+Rounded_Corners@lennart-k
+ding@rastersoft.com
+ubuntu-appindicators@ubuntu.com
+ubuntu-dock@ubuntu.com
+gsconnect@andyholmes.github.io
+{/}
+
+

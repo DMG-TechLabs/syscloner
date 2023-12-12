@@ -1,4 +1,4 @@
-from constants import APT_PACKAGES, EXTENSION, SEPARATOR, SYSTEM_SETTINGS
+from constants import APT_PACKAGES, EXTENSION, FLATPAK_PACKAGES, GNOME_EXTENSIONS, SEPARATOR, SHELL_THEMES, SNAP_PACKAGES, SYSTEM_SETTINGS
 from metadata import get_os, get_distro, metadata
 import get_methods
 
@@ -67,17 +67,35 @@ class FileBuilder:
 
         contents += "\n\n\n"
 
+        contents += SYSTEM_SETTINGS + "\n"
+        contents += SEPARATOR + "\n\n\n"
+
         contents += APT_PACKAGES + "\n"
         for package in get_methods.get_apt_packages():
             contents += package + "\n"
-        contents += SEPARATOR + "\n"
+        contents += SEPARATOR + "\n\n\n"
 
+        contents += SNAP_PACKAGES + "\n"
+        for package in get_methods.get_snap_packages():
+            contents += package + "\n"
+        contents += SEPARATOR + "\n\n\n"
 
+        contents += FLATPAK_PACKAGES + "\n"
+        for package in get_methods.get_flatpak_packages():
+            contents += package + "\n"
+        contents += SEPARATOR + "\n\n\n"
 
+        contents += GNOME_EXTENSIONS + "\n"
+        for package in get_methods.get_gnome_extensions():
+            contents += package + "\n"
+        contents += SEPARATOR + "\n\n\n"
+
+        contents += SHELL_THEMES + "\n"
+        for package in get_methods.get_gnome_extensions():
+            contents += package + "\n"
+        contents += SEPARATOR + "\n\n\n"
         file = open(filename, "w")
         file.write(contents)
         file.close()
 
         print("File written successfully")
-
-
