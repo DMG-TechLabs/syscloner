@@ -25,8 +25,6 @@ def get_gnome_extensions():
     list.remove('')
     return list
 
-# def get_ssh_keys():
-
 
 def get_flatpak_packages():
     list = get_packages("flatpak").split("\\n")
@@ -71,8 +69,8 @@ def get_ssh_keys():
         files = files_list
 
     # print(files)
-    
-    for i in range(0,len(files)-1):
+
+    for i in range(0, len(files)-1):
         file = files[i]
         with open(file, "r") as filename:
             sources.append([])

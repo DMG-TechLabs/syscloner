@@ -1,6 +1,8 @@
-from constants import APT_PACKAGES, EXTENSION, FLATPAK_PACKAGES, GNOME_EXTENSIONS, SEPARATOR, SHELL_THEMES, SNAP_PACKAGES, SYSTEM_SETTINGS
+from constants import APT_PACKAGES, APT_REPOSITORIES, CONFIGS, EXTENSION, FLATPAK_PACKAGES, GNOME_EXTENSIONS, REPOSITORY_KEYS, SEPARATOR, SHELL_THEMES, SSH, SNAP_PACKAGES, SYSTEM_SETTINGS
 from metadata import get_os, get_distro, metadata
 import get_methods
+from datetime import datetime
+
 
 class FileBuilder:
     def __init__(self,
@@ -56,14 +58,16 @@ class FileBuilder:
     def set_configs(self, configs):
         self.configs = configs
 
-    def build(self, name, os, distro) -> None:
-        filename = f"{name}{os}{distro}.{EXTENSION}"
+    def build(self, name, distro, shell) -> None:
+        filename = f"{name}{distro}{shell}.{EXTENSION}"
 
+        now = datetime.now()
         contents = ""
         # Metadata
         contents += metadata("name", name) + "\n"
-        contents += metadata("os", get_os(os)) + "\n"
-        contents += metadata("distro", get_distro(distro)) + "\n"
+        contents += metadata("date", now.strftime("%d/%m/%Y %H:%M:%S")) + "\n"
+        contents += metadata("distro", get_os(distro)) + "\n"
+        contents += metadata("shell", get_distro(shell)) + "\n"
 
         contents += "\n\n\n"
 
@@ -90,10 +94,24 @@ class FileBuilder:
             contents += package + "\n"
         contents += SEPARATOR + "\n\n\n"
 
-        contents += SHELL_THEMES + "\n"
-        for package in get_methods.get_gnome_extensions():
-            contents += package + "\n"
+        contents += REPOSITORY_KEYS + "\n"
+        for pair in get_methods.get_sources_keys():
+            contents += pair[0] + "\n"
+            contents += str(pair[1]) + "\n\n"
         contents += SEPARATOR + "\n\n\n"
+
+        contents += SHELL_THEMES + "\n"
+        contents += SEPARATOR + "\n\n\n"
+
+        contents += APT_REPOSITORIES + "\n"
+        contents += SEPARATOR + "\n\n\n"
+
+        contents += SSH + "\n"
+        contents += SEPARATOR + "\n\n\n"
+
+        contents += CONFIGS + "\n"
+        contents += SEPARATOR + "\n\n\n"
+
         file = open(filename, "w")
         file.write(contents)
         file.close()
