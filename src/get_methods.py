@@ -3,11 +3,13 @@ import subprocess
 
 def get_packages(source):
     result = subprocess.run([f'./scripts/{source}.sh'], stdout=subprocess.PIPE)
-    return result
+    return str(result.stdout).replace("b'", "").replace("'", "")
 
 
 def get_apt_packages():
-    return get_packages("apt")
+    list = get_packages("apt").split("\\n")
+    list.remove("Listing...")
+    return list
 
 
 def get_gnome_extensions():
@@ -17,8 +19,12 @@ def get_gnome_extensions():
 
 
 def get_flatpak_packages():
-    return get_packages("flatpak")
+    list = get_packages("flatpak").split("\\n")
+    list.remove('')
+    return list
 
 
 def get_snap_packages():
-    return get_packages("snap")
+    list = get_packages("snap").split("\\n")
+    list.remove('')
+    return list
