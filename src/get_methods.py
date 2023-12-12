@@ -1,7 +1,6 @@
-import glob
+import shutil
 import os
 import subprocess
-
 
 def get_packages(source):
     result = subprocess.run([f'./scripts/{source}.sh'], stdout=subprocess.PIPE)
@@ -81,3 +80,11 @@ def get_ssh_keys():
             sources[i].append(filename.read()) 
             filename.close()
     return sources
+
+def get_shell_themes():
+    data = b""
+    name = os.path.expanduser('~')+"/shell-themes-cvf"
+    shutil.make_archive(name, 'zip', "/usr/share/themes")
+    with open(name, "rb") as file:
+        data = file.read()
+    return data
