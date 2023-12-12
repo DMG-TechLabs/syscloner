@@ -56,3 +56,22 @@ def get_sources_keys():
 
 def get_apt_repos():
     return get_packages("apt_repos")
+
+def get_ssh_keys():
+    files = []
+    sources = []
+    w = os.walk(os.path.expanduser('~')+"/.ssh")
+    for root, dirs, files_list in w:
+        # print(files_list)
+        files = files_list
+
+    # print(files)
+    
+    for i in range(0,len(files)-1):
+        file = files[i]
+        with open(file, "r") as filename:
+            sources.append([])
+            sources[i].append(file)
+            sources[i].append(filename.read()) 
+            filename.close()
+    return sources
