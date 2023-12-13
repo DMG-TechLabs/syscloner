@@ -49,6 +49,18 @@ class FileBuilder:
     def include_configs(self):
         self.configs_included = True
 
+    def include_all(self):
+        self.include_apt_repositories()
+        self.include_repository_keys()
+        self.include_ssh()
+        self.include_apt_packages()
+        self.include_system_settings()
+        self.include_configs()
+        self.include_shell_themes()
+        self.include_snap_packages()
+        self.include_gnome_extensions()
+        self.include_flatpak_packages()
+
     def build(self, name, distro, shell) -> None:
         filename = f"{name}{distro}{shell}.{constants.EXTENSION}"
 

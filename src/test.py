@@ -1,3 +1,8 @@
+from constants import GNOME, UBUNTU
+from file_builder import FileBuilder
 import get_methods
 
-print(get_methods.get_gnome_extensions())
+builder = FileBuilder()
+builder.include_all()
+
+builder.build("test", UBUNTU, GNOME)
