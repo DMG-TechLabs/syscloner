@@ -71,63 +71,104 @@ class FileBuilder:
 
         contents += "\n\n\n"
 
-        contents += SYSTEM_SETTINGS + "\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += APT_PACKAGES + "\n"
-        for package in get_methods.get_apt_packages():
-            contents += package + "\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += SNAP_PACKAGES + "\n"
-        for package in get_methods.get_snap_packages():
-            contents += package + "\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += FLATPAK_PACKAGES + "\n"
-        for package in get_methods.get_flatpak_packages():
-            contents += package + "\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += GNOME_EXTENSIONS + "\n"
-        for extension in get_methods.get_gnome_extensions():
-            contents += extension + "\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += REPOSITORY_KEYS + "\n"
-        for pair in get_methods.get_sources_keys():
-            contents += pair[0] + "\n"
-            contents += str(pair[1]) + "\n\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += SHELL_THEMES + "\n"
-        try:
-            contents += str(get_methods.get_shell_themes())
-        except FileNotFoundError:
-            contents += "Error\n"
-            print("Error with shell themes")
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += APT_REPOSITORIES + "\n"
-        for repo in get_methods.get_apt_repos():
-            contents += repo + "\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += SSH + "\n"
-        try:
-            for pair in get_methods.get_ssh_keys():
-                contents += pair[0] + "\n"
-                contents += pair[1] + "\n\n"
-        except FileNotFoundError:
-            print("Error with ssh")
-            contents += "Error\n"
-        contents += SEPARATOR + "\n\n\n"
-
-        contents += CONFIGS + "\n"
-        contents += SEPARATOR + "\n\n\n"
+        contents += system_settings()
+        contents += apt_packages()
+        contents += snap_packages()
+        contents += flatpak_packages()
+        contents += gnome_extensions()
+        contents += repository_keys()
+        contents += shell_themes()
+        contents += apt_repositories()
+        contents += ssh()
+        contents += configs()
 
         file = open(filename, "w")
         file.write(contents)
         file.close()
 
         print("File written successfully")
+
+
+def system_settings():
+    contents = SYSTEM_SETTINGS + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def apt_packages():
+    contents = APT_PACKAGES + "\n"
+    for package in get_methods.get_apt_packages():
+        contents += package + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def snap_packages():
+    contents = SNAP_PACKAGES + "\n"
+    for package in get_methods.get_snap_packages():
+        contents += package + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def flatpak_packages():
+    contents = FLATPAK_PACKAGES + "\n"
+    for package in get_methods.get_flatpak_packages():
+        contents += package + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def gnome_extensions():
+    contents = GNOME_EXTENSIONS + "\n"
+    for extension in get_methods.get_gnome_extensions():
+        contents += extension + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def repository_keys():
+    contents = REPOSITORY_KEYS + "\n"
+    for pair in get_methods.get_sources_keys():
+        contents += pair[0] + "\n"
+        contents += str(pair[1]) + "\n\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def shell_themes():
+    contents = SHELL_THEMES + "\n"
+    try:
+        contents += str(get_methods.get_shell_themes())
+    except FileNotFoundError:
+        contents += "Error\n"
+        print("Error with shell themes")
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def apt_repositories():
+    contents = APT_REPOSITORIES + "\n"
+    for repo in get_methods.get_apt_repos():
+        contents += repo + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def ssh():
+    contents = SSH + "\n"
+    try:
+        for pair in get_methods.get_ssh_keys():
+            contents += pair[0] + "\n"
+            contents += pair[1] + "\n\n"
+    except FileNotFoundError:
+        print("Error with ssh")
+        contents += "Error\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
+
+
+def configs():
+    contents = CONFIGS + "\n"
+    contents += SEPARATOR + "\n\n\n"
+    return contents
