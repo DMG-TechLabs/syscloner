@@ -1,86 +1,77 @@
-from constants import APT_PACKAGES, APT_REPOSITORIES, CONFIGS, EXTENSION, FLATPAK_PACKAGES, GNOME_EXTENSIONS, REPOSITORY_KEYS, SEPARATOR, SHELL_THEMES, SSH, SNAP_PACKAGES, SYSTEM_SETTINGS
+import constants
 from metadata import get_os, get_distro, metadata
 import get_methods
 from datetime import datetime
 
 
 class FileBuilder:
-    def __init__(self,
-                 system_settings=None,
-                 apt_pkgs=None,
-                 snap_pkgs=None,
-                 flatpak_pkgs=None,
-                 apt_repos=None,
-                 repo_keys=None,
-                 gnome_exts=None,
-                 shell_themes=None,
-                 ssh_keys=None,
-                 configs=None
-                 ):
-        self.system_settings = system_settings
-        self.apt_pkgs = apt_pkgs
-        self.snap_pkgs = snap_pkgs
-        self.flatpak_pkgs = flatpak_pkgs
-        self.apt_repos = apt_repos
-        self.repo_keys = repo_keys
-        self.gnome_exts = gnome_exts
-        self.shell_themes = shell_themes
-        self.ssh_keys = ssh_keys
-        self.configs = configs
+    system_settings_included = False
+    apt_packages_included = False
+    snap_packages_included = False
+    flatpak_packages_included = False
+    gnome_extensions_included = False
+    repository_keys_included = False
+    shell_themes_included = False
+    apt_repositories_included = False
+    ssh_included = False
+    configs_included = False
 
-    def set_system_settings(self, system_settings):
-        self.system_settings = system_settings
+    def __init__(self) -> None:
+        pass
 
-    def set_apt_pkgs(self, apt_pkgs):
-        self.apt_pkgs = apt_pkgs
+    def include_system_settings(self):
+        self.system_settings_included = True
 
-    def set_snap_pkgs(self, snap_pkgs):
-        self.snap_pkgs = snap_pkgs
+    def include_apt_packages(self):
+        self.apt_packages_included = True
 
-    def set_flatpak_pkgs(self, flatpak_pkgs):
-        self.flatpak_pkgs = flatpak_pkgs
+    def include_snap_packages(self):
+        self.snap_packages_included = True
 
-    def set_apt_repos(self, apt_repos):
-        self.apt_repos = apt_repos
+    def include_flatpak_packages(self):
+        self.flatpak_packages_included = True
 
-    def set_repo_keys(self, repo_keys):
-        self.repo_keys = repo_keys
+    def include_gnome_extensions(self):
+        self.gnome_extensions_included = True
 
-    def set_gnome_exts(self, gnome_exts):
-        self.gnome_exts = gnome_exts
+    def include_repository_keys(self):
+        self.repository_keys_included = True
 
-    def set_shell_themes(self, shell_themes):
-        self.shell_themes = shell_themes
+    def include_shell_themes(self):
+        self.shell_themes_included = True
 
-    def set_ssh_keys(self, ssh_keys):
-        self.ssh_keys = ssh_keys
+    def include_apt_repositories(self):
+        self.apt_repositories_included = True
 
-    def set_configs(self, configs):
-        self.configs = configs
+    def include_ssh(self):
+        self.ssh_included = True
+
+    def include_configs(self):
+        self.configs_included = True
 
     def build(self, name, distro, shell) -> None:
-        filename = f"{name}{distro}{shell}.{EXTENSION}"
+        filename = f"{name}{distro}{shell}.{constants.EXTENSION}"
 
         now = datetime.now()
-        contents = ""
+
         # Metadata
-        contents += metadata("name", name) + "\n"
+        contents = metadata("name", name) + "\n"
         contents += metadata("date", now.strftime("%d/%m/%Y %H:%M:%S")) + "\n"
         contents += metadata("distro", get_os(distro)) + "\n"
         contents += metadata("shell", get_distro(shell)) + "\n"
 
         contents += "\n\n\n"
 
-        contents += system_settings()
-        contents += apt_packages()
-        contents += snap_packages()
-        contents += flatpak_packages()
-        contents += gnome_extensions()
-        contents += repository_keys()
-        contents += shell_themes()
-        contents += apt_repositories()
-        contents += ssh()
-        contents += configs()
+        contents += system_settings() if self.system_settings_included else ""
+        contents += apt_packages() if self.apt_packages_included else ""
+        contents += snap_packages() if self.snap_packages_included else ""
+        contents += flatpak_packages() if self.flatpak_packages_included else ""
+        contents += gnome_extensions() if self.gnome_extensions_included else ""
+        contents += repository_keys() if self.repository_keys_included else ""
+        contents += shell_themes() if self.shell_themes_included else ""
+        contents += apt_repositories() if self.apt_repositories_included else ""
+        contents += ssh() if self.ssh_included else ""
+        contents += configs() if self.configs_included else ""
 
         file = open(filename, "w")
         file.write(contents)
@@ -90,73 +81,73 @@ class FileBuilder:
 
 
 def system_settings():
-    contents = SYSTEM_SETTINGS + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents = constants.SYSTEM_SETTINGS + "\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def apt_packages():
-    contents = APT_PACKAGES + "\n"
+    contents = constants.APT_PACKAGES + "\n"
     for package in get_methods.get_apt_packages():
         contents += package + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def snap_packages():
-    contents = SNAP_PACKAGES + "\n"
+    contents = constants.SNAP_PACKAGES + "\n"
     for package in get_methods.get_snap_packages():
         contents += package + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def flatpak_packages():
-    contents = FLATPAK_PACKAGES + "\n"
+    contents = constants.FLATPAK_PACKAGES + "\n"
     for package in get_methods.get_flatpak_packages():
         contents += package + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def gnome_extensions():
-    contents = GNOME_EXTENSIONS + "\n"
+    contents = constants.GNOME_EXTENSIONS + "\n"
     for extension in get_methods.get_gnome_extensions():
         contents += extension + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def repository_keys():
-    contents = REPOSITORY_KEYS + "\n"
+    contents = constants.REPOSITORY_KEYS + "\n"
     for pair in get_methods.get_sources_keys():
         contents += pair[0] + "\n"
         contents += str(pair[1]) + "\n\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def shell_themes():
-    contents = SHELL_THEMES + "\n"
+    contents = constants.SHELL_THEMES + "\n"
     try:
         contents += str(get_methods.get_shell_themes())
     except FileNotFoundError:
         contents += "Error\n"
         print("Error with shell themes")
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def apt_repositories():
-    contents = APT_REPOSITORIES + "\n"
+    contents = constants.APT_REPOSITORIES + "\n"
     for repo in get_methods.get_apt_repos():
         contents += repo + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def ssh():
-    contents = SSH + "\n"
+    contents = constants.SSH + "\n"
     try:
         for pair in get_methods.get_ssh_keys():
             contents += pair[0] + "\n"
@@ -164,11 +155,11 @@ def ssh():
     except FileNotFoundError:
         print("Error with ssh")
         contents += "Error\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
 
 
 def configs():
-    contents = CONFIGS + "\n"
-    contents += SEPARATOR + "\n\n\n"
+    contents = constants.CONFIGS + "\n"
+    contents += constants.SEPARATOR + "\n\n\n"
     return contents
