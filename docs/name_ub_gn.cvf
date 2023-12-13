@@ -1,3 +1,9 @@
+{name: kdesp73}
+{date: 12/12/2023}
+{distro: Ubuntu}
+{shell: Gnome}
+
+
 {System Settings}
 dconf file bytes
 {/}
@@ -16,5 +22,123 @@ package10
 package11
 {/}
 
+{Snap Packages}
+package1
+package2
+package3
+package4
+package5
+package6
+package7
+package8
+package9
+package10
+package11
+{/}
+
+{Flatpak Packages}
+package1
+package2
+package3
+package4
+package5
+package6
+package7
+package8
+package9
+package10
+package11
+{/}
+
+{Gnome Extensions}
+extension1
+extension2
+extension3
+extension4
+extension5
+extension6
+extension7
+extension8
+extension9
+extension10
+extension11
+{/}
+
+{Shell Themes}
+Zip bytes
+{/}
+
+{Apt Repositories}
+File contents
+{/}
+
+{Repository Keys}
+path1
+bytes1
+
+path2
+bytes2
+
+path3
+bytes3
+
+path4
+bytes4
+
+path5
+bytes5
+
+path6
+bytes6
+
+path7
+bytes7
+{/}
+
+{SSH}
+path1
+text1
+
+path2
+text2
+
+path3
+text3
+
+path4
+text4
+
+path5
+text5
+
+path6
+text6
+
+path7
+text7
+{/}
+
+{Configs}
+path1
+git-repo1
+
+path2
+git-repo2
+
+path3
+git-repo3
+
+path4
+git-repo4
+
+path5
+git-repo5
+
+path6
+git-repo6
+
+path7
+git-repo7
+{/}
 
 
