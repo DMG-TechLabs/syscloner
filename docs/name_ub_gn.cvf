@@ -1,4 +1,4 @@
-{source: kdesp73}
+{name: kdesp73}
 {date: 12/12/2023}
 {distro: Ubuntu}
 {shell: Gnome}
@@ -69,37 +69,76 @@ Zip bytes
 {/}
 
 {Apt Repositories}
-
+File contents
 {/}
 
 {Repository Keys}
-path1: bytes1
-path2: bytes2
-path3: bytes3
-path4: bytes4
-path5: bytes5
-path6: bytes6
-path7: bytes7
+path1
+bytes1
+
+path2
+bytes2
+
+path3
+bytes3
+
+path4
+bytes4
+
+path5
+bytes5
+
+path6
+bytes6
+
+path7
+bytes7
 {/}
 
 {SSH}
-path1: text1
-path2: text2
-path3: text3
-path4: text4
-path5: text5
-path6: text6
-path7: text7
+path1
+text1
+
+path2
+text2
+
+path3
+text3
+
+path4
+text4
+
+path5
+text5
+
+path6
+text6
+
+path7
+text7
 {/}
 
 {Configs}
-path1: git-repo1
-path2: git-repo2
-path3: git-repo3
-path4: git-repo4
-path5: git-repo5
-path6: git-repo6
-path7: git-repo7
+path1
+git-repo1
+
+path2
+git-repo2
+
+path3
+git-repo3
+
+path4
+git-repo4
+
+path5
+git-repo5
+
+path6
+git-repo6
+
+path7
+git-repo7
 {/}
 
 
