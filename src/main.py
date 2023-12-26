@@ -5,12 +5,13 @@ from file_parser import FileParser
 
 def main():
     builder = FileBuilder()
-   
-    builder.include_repository_keys()
+    
+    builder.include_all()
+    # builder.include_repository_keys()
     # builder.include_apt_repositories()
     # builder.include_apt_packages()
     # builder.include_snap_packages()
-    builder.include_flatpak_packages()
+    # builder.include_flatpak_packages()
     builder.build("kdesp73", UBUNTU, GNOME)
 
     parser = FileParser("kdesp73_ub_gn.cvf")

@@ -2,7 +2,7 @@ import constants
 
 
 class FileParser:
-    # Private
+    # Private (i hate this)
     __index = 0
     __lines = []
 
