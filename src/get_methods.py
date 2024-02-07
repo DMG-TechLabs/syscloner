@@ -65,18 +65,19 @@ def get_ssh_keys():
     sources = []
     w = os.walk(os.path.expanduser('~')+"/.ssh")
     for root, dirs, files_list in w:
-        # print(files_list)
+        print(files_list)
         files = files_list
 
-    # print(files)
+    # # print(files)
 
     for i in range(0, len(files)-1):
         file = files[i]
-        with open(file, "r") as filename:
-            sources.append([])
-            sources[i].append(file)
-            sources[i].append(filename.read()) 
-            filename.close()
+        result = subprocess.run([f'./scripts/ssh.sh', file], stdout=subprocess.PIPE).stdout
+        # print(result)
+        # with subprocess.run([f'./scripts/ssh.sh', file], stdout=subprocess.PIPE) as filename:
+        sources.append([])
+        sources[i].append(file)
+        sources[i].append(str(result)) 
     return sources
 
 def get_shell_themes():
