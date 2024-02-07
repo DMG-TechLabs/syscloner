@@ -99,5 +99,24 @@ def get_dconf():
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
 
 def get_git_repos():
-    git_repos_paths = get_packages("git_repos_paths").split("\\n")
-    return git_repos_paths
+    num_of_repos = get_packages("num_of_repos").replace("\\n", "")
+    num_of_repos = int(num_of_repos)
+    
+    git_repos = [] * num_of_repos
+    
+    for i in range(0, num_of_repos):
+        git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1)], stdout=subprocess.PIPE)
+        git_repo_path = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
+        # print(git_repo_path)
+        
+        result = subprocess.run([f'./scripts/git_repos.sh', git_repo_path], stdout=subprocess.PIPE)
+        result = str(result.stdout).replace("b'", "").replace("\\n'", "")
+        
+        git_repos.append([])
+        # print(len(git_repos))
+        git_repos[i].append(result)
+        
+    for i in range(0, len(git_repos)):
+        print(git_repos[i])
+        
+    return git_repos
