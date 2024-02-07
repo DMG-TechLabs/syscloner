@@ -1,20 +1,20 @@
+import argparse
 from constants import GNOME, UBUNTU
 from file_builder import FileBuilder
 from file_parser import FileParser
-import argparse
+from installer import FileInstaller
 
-from installer import Installer
+
 
 def main():
     builder = FileBuilder()
-    installer = Installer()
     args_parser = argparse.ArgumentParser(
             prog='system-cloner',
             description='Clones your system',
             epilog='Made by DMG-TechLabs')
 
-    args_parser.add_argument("name", required=True)
-    args_parser.add_argument("action", required=True, choices=['backup', 'restore'])
+    args_parser.add_argument('name')
+    args_parser.add_argument('action', choices=['backup', 'restore'])
 
     args_parser.add_argument("--system", required=False, action='count')
     args_parser.add_argument("--apt", required=False, action='count')
@@ -32,6 +32,7 @@ def main():
     if args.action == 'restore':
         parser = FileParser(args.name)
         parser.parse()
+        installer = FileInstaller(parser)
         installer.install(parser)
         exit(0)
 

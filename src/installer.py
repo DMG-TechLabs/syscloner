@@ -3,7 +3,7 @@ from file_parser import FileParser
 import install_methods
 
 
-class Installer:
+class FileInstaller:
     def __init__(self, parser: FileParser) -> None:
         self.parser = parser
 
