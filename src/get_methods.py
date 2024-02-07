@@ -2,6 +2,7 @@ import shutil
 import os
 import subprocess
 
+
 def get_packages(source):
     result = subprocess.run([f'./scripts/{source}.sh'], stdout=subprocess.PIPE)
     return str(result.stdout).replace("b'", "").replace("'", "")
@@ -12,6 +13,7 @@ def get_apt_packages():
     list.remove("Listing...")
     list.remove('')
     return list
+
 
 def get_apt_repos():
     apt_repos = get_packages("apt_repos").split("\\n")
