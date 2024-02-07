@@ -111,12 +111,12 @@ def get_git_repos():
         
         result = subprocess.run([f'./scripts/git_repos.sh', git_repo_path], stdout=subprocess.PIPE)
         result = str(result.stdout).replace("b'", "").replace("\\n'", "")
-        
+        # print(result)
         git_repos.append([])
         # print(len(git_repos))
         git_repos[i].append(result)
         
     for i in range(0, len(git_repos)):
-        print(git_repos[i])
+        print(*git_repos[i])
         
     return git_repos
