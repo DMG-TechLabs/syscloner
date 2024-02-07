@@ -1,0 +1,18 @@
+TODO: Corn jobs
+TODO: Configs
+TODO: Github repos
+TODO: WiFi connections
+TODO: Auto-mount external drives
+TODO: Browser profiles
+TODO: .desktop files
+TODO: Templates
+TODO: Installer
+DONE: System settings
+DONE: Apt packages
+DONE: Gnome extensions (and configs)
+DONE: Snap packages
+DONE: Flatpak packages 
+DONE: Apt repositories
+DONE: SSH keys
+DONE: Shorcuts (with System Settings)
+DONE: Shell themes
