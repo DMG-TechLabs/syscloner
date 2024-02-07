@@ -94,6 +94,7 @@ class FileBuilder:
     def __system_settings(self):
         contents = constants.SYSTEM_SETTINGS + "\n"
         contents += str(get_methods.get_dconf())
+        contents += "\n"
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
 
