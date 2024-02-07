@@ -5,7 +5,7 @@ from file_parser import FileParser
 
 def main():
     builder = FileBuilder()
-    
+
     builder.include_all()
     # builder.include_repository_keys()
     # builder.include_apt_repositories()
@@ -17,10 +17,11 @@ def main():
     parser = FileParser("kdesp73_ub_gn.cvf")
     parser.parse()
 
-    print("apt_packages: ", parser.apt_packages)
-    print("snap_packages: ", parser.snap_packages)
-    print("flatpak_packages: ", parser.flatpak_packages)
-    print("apt_repositories: ", parser.apt_repositories)
+    # print("apt_packages: ", parser.apt_packages)
+    # print("snap_packages: ", parser.snap_packages)
+    # print("flatpak_packages: ", parser.flatpak_packages)
+    # print("apt_repositories: ", parser.apt_repositories)
+    print("ssh: ", parser.ssh)
 
     for pair in parser.repository_keys:
         print(pair[0])

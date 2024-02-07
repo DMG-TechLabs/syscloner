@@ -1,17 +1,17 @@
-TODO: Shell themes
 TODO: Corn jobs
 TODO: Shorcuts (with System Settings)
 TODO: Configs
 TODO: Github repos
-TODO: SSH keys
 TODO: WiFi connections
 TODO: Auto-mount external drives
 TODO: Browser profiles
 TODO: .desktop files
 TODO: Templates
+TODO: Shell themes
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
 DONE: Snap packages
 DONE: Flatpak packages 
 DONE: Apt repositories
+DONE: SSH keys
