@@ -33,7 +33,7 @@ def main():
         parser = FileParser(args.name)
         parser.parse()
         installer = FileInstaller(parser)
-        installer.install(parser)
+        installer.install()
         exit(0)
 
     if args.all:

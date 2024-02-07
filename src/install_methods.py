@@ -5,7 +5,7 @@ import subprocess
 
 def install_packages(source, packages):
     for package in packages:
-        subprocess.run([source, 'install', package])
+        subprocess.run([source, 'install', package, '-y'])
 
 
 def install_flatpak_packages(packages):
