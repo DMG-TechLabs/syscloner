@@ -13,8 +13,8 @@ def main():
             description='Clones your system',
             epilog='Made by DMG-TechLabs')
 
-    args_parser.add_argument('name')
     args_parser.add_argument('action', choices=['backup', 'restore'])
+    args_parser.add_argument('name')
 
     args_parser.add_argument("--system", required=False, action='count')
     args_parser.add_argument("--apt", required=False, action='count')
