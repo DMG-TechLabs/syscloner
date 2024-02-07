@@ -1,3 +1,4 @@
+from pdb import run
 import shutil
 import os
 import subprocess
@@ -96,3 +97,7 @@ def get_shell_themes():
 
 def get_dconf():
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
+
+def get_git_repos():
+    git_repos_paths = get_packages("git_repos_paths").split("\\n")
+    return git_repos_paths
