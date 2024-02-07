@@ -24,6 +24,10 @@
 
 At: ~/.config/dconf/user
 
+## Get git url
+
+git remote get-url $(git remote show)
+
 ## File Name And Extension
 
 Extension: cvf (Config Vault File)
