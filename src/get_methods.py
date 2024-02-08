@@ -101,22 +101,28 @@ def get_dconf():
 def get_git_repos():
     num_of_repos = get_packages("num_of_repos").replace("\\n", "")
     num_of_repos = int(num_of_repos)
-    
-    git_repos = [] * num_of_repos
-    
+
+    git_repos = [[""]*2]*num_of_repos
+
     for i in range(0, num_of_repos):
+        print("i:" + str(i))
+        temp_array = [""]*2
         git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1)], stdout=subprocess.PIPE)
-        git_repo_path = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
+        temp_array[0] = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
         # print(git_repo_path)
         
-        result = subprocess.run([f'./scripts/git_repos.sh', git_repo_path], stdout=subprocess.PIPE)
-        result = str(result.stdout).replace("b'", "").replace("\\n'", "")
+        git_repo_url = subprocess.run([f'./scripts/git_repos.sh', temp_array[0]], stdout=subprocess.PIPE)
+        temp_array[1] = str(git_repo_url.stdout).replace("b'", "").replace("\\n'", "")
         # print(result)
-        git_repos.append([])
-        # print(len(git_repos))
-        git_repos[i].append(result)
+        git_repos[i] = temp_array
+        print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")
+            
+    print("\n")
+    # print(git_repos)
         
     for i in range(0, len(git_repos)):
-        print(*git_repos[i])
+        for j in range(0,1):
+            print(git_repos[i][j])
+            print(git_repos[i][j+1] + "\n")
         
     return git_repos
