@@ -37,4 +37,4 @@ class FileInstaller:
             install_methods.install_files_from_bytes(self.parser.ssh, "wb")
 
         if self.parser.configs.__len__() != 0:
-            install_methods.install_files_from_bytes(self.parser.configs, "wb")
+            install_methods.install_files_from_bytes(self.parser.configs, "w")

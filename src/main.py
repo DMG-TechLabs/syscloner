@@ -5,7 +5,6 @@ from file_parser import FileParser
 from installer import FileInstaller
 
 
-
 def main():
     builder = FileBuilder()
     args_parser = argparse.ArgumentParser(
