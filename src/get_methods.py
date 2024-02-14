@@ -115,10 +115,4 @@ def get_git_repos(path):
         # print(result)
         git_repos[i] = temp_array
         # print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")
-
-    for i in range(0, len(git_repos)):
-        for j in range(0,1):
-            print(git_repos[i][j])
-            print(git_repos[i][j+1] + "\n")
-        
     return git_repos
