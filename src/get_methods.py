@@ -98,27 +98,27 @@ def get_shell_themes():
 def get_dconf():
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
 
-def get_git_repos():
-    num_of_repos = get_packages("num_of_repos").replace("\\n", "")
-    num_of_repos = int(num_of_repos)
+def get_git_repos(path):
+    num_of_repos = subprocess.run([f'./scripts/num_of_repos.sh', str(path)], stdout=subprocess.PIPE)
+    num_of_repos = int(num_of_repos.stdout)
 
     git_repos = [[""]*2]*num_of_repos
 
     for i in range(0, num_of_repos):
         print("i:" + str(i))
         temp_array = [""]*2
-        git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1)], stdout=subprocess.PIPE)
+        git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1), str(path)], stdout=subprocess.PIPE)
         temp_array[0] = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
-        # print(git_repo_path)
+        # print(temp_array[0])
         
         git_repo_url = subprocess.run([f'./scripts/git_repos.sh', temp_array[0]], stdout=subprocess.PIPE)
         temp_array[1] = str(git_repo_url.stdout).replace("b'", "").replace("\\n'", "")
         # print(result)
         git_repos[i] = temp_array
-        print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")
-            
+        # print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")
+
+    print(git_repos)
     print("\n")
-    # print(git_repos)
         
     for i in range(0, len(git_repos)):
         for j in range(0,1):

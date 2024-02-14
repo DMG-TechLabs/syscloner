@@ -5,4 +5,4 @@ if [ $# -eq -0 ]
         echo "No arguments supplied"
 fi
 
-find /home -name ".git" | head -n $1 | tail +$1
+find $2 -name ".git" | head -n $1 | tail +$1

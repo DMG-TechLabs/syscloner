@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find /home -name ".git" | wc -l
+find $1 -name ".git" | wc -l
