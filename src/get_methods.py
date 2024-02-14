@@ -101,28 +101,44 @@ def get_dconf():
 def get_git_repos(path):
     num_of_repos = subprocess.run([f'./scripts/num_of_repos.sh', str(path)], stdout=subprocess.PIPE)
     num_of_repos = int(num_of_repos.stdout)
+    num_of_submodules = subprocess.run([f'./scripts/num_of_submodules.sh', str(path)], stdout=subprocess.PIPE)
+    num_of_submodules = int(num_of_submodules.stdout)
 
     git_repos = [[""]*2]*num_of_repos
+    submodules = [""]*num_of_submodules
+    
+    #List of submodules to be extracted
+    for i in range(0, num_of_submodules):
+        git_repo_path = subprocess.run([f'./scripts/git_submodules.sh', str(i+1), str(path)], stdout=subprocess.PIPE)
+        submodules[i] = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
+        # print(submodules[i])
 
+    #List of all git repos  
     for i in range(0, num_of_repos):
-        print("i:" + str(i))
         temp_array = [""]*2
-        git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1), str(path)], stdout=subprocess.PIPE)
+        git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1), str(path), str(temp_array[0])], stdout=subprocess.PIPE)
         temp_array[0] = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
-        # print(temp_array[0])
-        
+        # print(temp_array[0]) 
         git_repo_url = subprocess.run([f'./scripts/git_repos.sh', temp_array[0]], stdout=subprocess.PIPE)
         temp_array[1] = str(git_repo_url.stdout).replace("b'", "").replace("\\n'", "")
-        # print(result)
         git_repos[i] = temp_array
-        # print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")
+        # print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")        
+    
+    #Extract submodules from git repos list
+    for i in range(0, len(submodules)):
+        for j in range(0, len(git_repos)):
+            print("submodule_path: " + submodules[i] + "\nrepo_path: " + git_repos[j][0] + "\n")
+            if git_repos[j][0] == submodules[i]:
+                print("here\n")
+                git_repos.pop(j)
+                break
 
-    print(git_repos)
     print("\n")
         
+    #Print git repos list
     for i in range(0, len(git_repos)):
-        for j in range(0,1):
-            print(git_repos[i][j])
-            print(git_repos[i][j+1] + "\n")
+        print(i)
+        print(git_repos[i][0])
+        print(git_repos[i][1] + "\n")
         
     return git_repos
