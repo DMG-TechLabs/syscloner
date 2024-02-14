@@ -105,7 +105,6 @@ def get_git_repos(path):
     git_repos = [[""]*2]*num_of_repos
 
     for i in range(0, num_of_repos):
-        print("i:" + str(i))
         temp_array = [""]*2
         git_repo_path = subprocess.run([f'./scripts/git_repos_paths.sh', str(i+1), str(path)], stdout=subprocess.PIPE)
         temp_array[0] = str(git_repo_path.stdout).replace("b'", "").replace("\\n'", "")
@@ -117,9 +116,6 @@ def get_git_repos(path):
         git_repos[i] = temp_array
         # print("(" + git_repos[i][0] + ", "+ git_repos[i][1] + ")")
 
-    print(git_repos)
-    print("\n")
-        
     for i in range(0, len(git_repos)):
         for j in range(0,1):
             print(git_repos[i][j])
