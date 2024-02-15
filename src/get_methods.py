@@ -105,6 +105,12 @@ def is_substring_in_list(substring, string_list):
             return True
     return False
 
+def substring_in_list(substring, string_list):
+    for string in string_list:
+        if substring in string:
+            return string
+    return ""
+
 
 
 def get_git_repos(path):
@@ -119,14 +125,11 @@ def get_git_repos(path):
 
     git_repos = list()
     not_valid_repos = []
+    lines = []
 
     for root, dirs, files in os.walk(path):
         for d in dirs:
             full_dir_path = os.path.join(root, d)
-
-            if(os.path.exists(os.path.join(full_dir_path, '.gitmodules'))): 
-                not_valid_repos.append(full_dir_path)
-                continue
 
             if(is_substring_in_list(full_dir_path, not_valid_repos)): continue
 
@@ -140,5 +143,15 @@ def get_git_repos(path):
                     
                     if repo_url != "":
                         git_repos.append([full_dir_path, repo_url])
+            
+            submodule_path = os.path.join(full_dir_path, '.gitmodules')
+            if(os.path.exists(submodule_path)):
+                not_valid_repos.append(full_dir_path)
+                with open(submodule_path, 'r') as file:
+                    lines = file.readlines()
+                    file.close()
+                if(substring_in_list("path", lines) != ""):  
+                    not_valid_repos.append(full_dir_path+"/"+substring_in_list("path", lines).replace("\t", "").replace("path = ",""))
+                continue
 
     return git_repos
