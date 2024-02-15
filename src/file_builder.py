@@ -166,12 +166,8 @@ class FileBuilder:
 
     def __git_repos(self):
         contents = constants.GIT_REPOSITORIES + "\n"
-        try:
-            for pair in get_methods.get_git_repos(self.git_repos_path):
-                contents += pair[0] + "\n"
-                contents += pair[1] + "\n\n"
-        except FileNotFoundError:
-            print("Error with git repos")
-            contents += "Error\n"
+        for pair in get_methods.get_git_repos(self.git_repos_path):
+            contents += pair[0] + "\n"
+            contents += pair[1] + "\n\n"
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
