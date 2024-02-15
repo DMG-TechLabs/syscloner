@@ -115,10 +115,10 @@ def get_git_repos(path):
             full_dir_path = os.path.join(root, d)
             git_dir = os.path.join(full_dir_path, '.git')
             if os.path.exists(git_dir):
-                # Check if it's a git repository
                 git_output = run_shell_command(['git', '-C', full_dir_path, 'rev-parse', '--is-inside-work-tree'])
                 if git_output == "true":
-                    repo_url = run_shell_command(['git', '-C', full_dir_path, 'config', '--get', 'remote.origin.url'])
-                    git_repos.append([full_dir_path, repo_url])
+                    if not os.path.exists(os.path.join(full_dir_path, '.gitmodules')):
+                        repo_url = run_shell_command(['git', '-C', full_dir_path, 'config', '--get', 'remote.origin.url'])
+                        git_repos.append([full_dir_path, repo_url])
 
     return git_repos
