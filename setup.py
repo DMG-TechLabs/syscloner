@@ -12,9 +12,9 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='sample',
+    name='system-cloner',
     version='0.1.0',
-    description='A system cloner tool',
+    description='A system cloner cli tool',
     long_description=readme,
     author='DMG TechLabs',
     author_email='dmg.techlabs@gmail.com',
