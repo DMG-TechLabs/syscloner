@@ -49,7 +49,7 @@ def backup(args):
     builder = FileBuilder()
     if args.all is not None:
         builder.include_all(args.git_repos)
-        builder.build(args.name, UBUNTU, GNOME)  # TODO: Check distro and shell
+        builder.build(args.filename, UBUNTU, GNOME)  # TODO: Check distro and shell
         return
 
     if args.system is not None:
@@ -79,7 +79,7 @@ def backup(args):
     if args.git_repos is not None:
         builder.include_git_repositories(args.git_repos)
 
-    builder.build(args.name, UBUNTU, GNOME)
+    builder.build(args.filename, UBUNTU, GNOME)
 
 
 def main():
