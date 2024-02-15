@@ -12,21 +12,73 @@ def main():
             description='Clones your system',
             epilog='Made by DMG-TechLabs')
 
-
     args_parser.add_argument('action', choices=['backup', 'restore'])
     args_parser.add_argument('name')
 
-    args_parser.add_argument('--system', required=False, action='count', help='include system settings')
-    args_parser.add_argument('--apt', required=False, action='count', help='include apt packages')
-    args_parser.add_argument('--snap', required=False, action='count', help='include snap packages')
-    args_parser.add_argument('--flatpak', required=False, action='count', help='include flatpak packages')
-    args_parser.add_argument('--themes', required=False, action='count', help='include shell themes')
-    args_parser.add_argument('--exts', required=False, action='count', help='include shell extensions')
-    args_parser.add_argument('--keys', required=False, action='count', help='include repository keys')
-    args_parser.add_argument('--ssh', required=False, action='count', help='include ssh keys')
-    args_parser.add_argument('--git-repos', required=False, action='store', help='include git repos (Specify path)')
-    args_parser.add_argument('--all', required=False, action='count', help='include exerying available (Specify git repos path)')
-    args_parser.add_argument('-v', '--version', action='version', help='print executable version')
+    args_parser.add_argument(
+            '--system',
+            required=False,
+            action='count',
+            help='include system settings')
+
+    args_parser.add_argument(
+            '--apt',
+            required=False,
+            action='count',
+            help='include apt packages')
+
+    args_parser.add_argument(
+            '--snap',
+            required=False,
+            action='count',
+            help='include snap packages')
+
+    args_parser.add_argument(
+            '--flatpak',
+            required=False,
+            action='count',
+            help='include flatpak packages')
+
+    args_parser.add_argument(
+            '--themes',
+            required=False,
+            action='count',
+            help='include shell themes')
+
+    args_parser.add_argument(
+            '--exts',
+            required=False,
+            action='count',
+            help='include shell extensions')
+
+    args_parser.add_argument(
+            '--keys',
+            required=False,
+            action='count',
+            help='include repository keys')
+
+    args_parser.add_argument(
+            '--ssh',
+            required=False,
+            action='count',
+            help='include ssh keys')
+
+    args_parser.add_argument(
+            '--git-repos',
+            required=False,
+            action='store',
+            help='include git repos (Specify path)')
+
+    args_parser.add_argument(
+            '--all',
+            required=False,
+            action='count',
+            help='include exerying available (Specify git repos path)')
+
+    args_parser.add_argument(
+            '-v', '--version',
+            action='version',
+            help='print executable version')
 
     args = args_parser.parse_args()
     print(args)
