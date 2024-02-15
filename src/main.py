@@ -12,7 +12,7 @@ def restore(args):
 
     if args.all:
         installer.include_all()
-        installer.build(args.name, UBUNTU, GNOME) # TODO: Check distro and shell
+        installer.install()
         exit(0)
 
     if args.system:
@@ -89,7 +89,7 @@ def main():
             epilog='Made by DMG-TechLabs')
 
     args_parser.add_argument('action', choices=['backup', 'restore'])
-    args_parser.add_argument('name')
+    args_parser.add_argument('filename')
 
     args_parser.add_argument(
             '--system',
