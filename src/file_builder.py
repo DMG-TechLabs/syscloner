@@ -85,7 +85,6 @@ class FileBuilder:
         contents += self.__apt_repositories() if self.apt_repositories_included else ""
         contents += self.__ssh() if self.ssh_included else ""
         contents += self.__git_repos() if self.git_repositories_included else ""
-        contents += self.__configs() if self.configs_included else ""
 
         file = open(filename, "w")
         file.write(contents)
