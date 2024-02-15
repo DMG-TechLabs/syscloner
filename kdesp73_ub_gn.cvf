@@ -1,5 +1,5 @@
 {name: kdesp73}
-{date: 15/02/2024 16:25:01}
+{date: 15/02/2024 16:43:11}
 {distro: Ubuntu}
 {shell: Gnome}
 
@@ -67,6 +67,7 @@ git@github.com:KDesp73/Cli-Kit.git
 git@github.com:KDesp73/Cli-Kit.git
 
 /home/konstantinos/personal/repos/rust/hello_world
+
 
 /home/konstantinos/personal/repos/dart/samples
 https://github.com/dart-lang/samples

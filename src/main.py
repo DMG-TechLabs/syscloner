@@ -13,6 +13,9 @@ def main():
             epilog='Made by DMG-TechLabs')
 
 
+    args_parser.add_argument('action', choices=['backup', 'restore'])
+    args_parser.add_argument('name')
+
     args_parser.add_argument("--system", required=False, action='count')
     args_parser.add_argument("--apt", required=False, action='count')
     args_parser.add_argument("--snap", required=False, action='count')
@@ -21,6 +24,7 @@ def main():
     args_parser.add_argument("--exts", required=False, action='count')
     args_parser.add_argument("--keys", required=False, action='count')
     args_parser.add_argument("--ssh", required=False, action='count')
+    args_parser.add_argument("--git-repos", required=False, action='store')
     args_parser.add_argument("--all", required=False, action='count')
 
     args = args_parser.parse_args()
@@ -61,6 +65,9 @@ def main():
 
     if args.ssh:
         builder.include_ssh()
+
+    if args.git_repos:
+        builder.include_git_repositories(args.git_repos)
 
     builder.build(args.name, UBUNTU, GNOME)
 
