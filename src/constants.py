@@ -4,8 +4,8 @@ EXTENSION = "cvf"   # Config Vault File
 
 SEPARATOR = "{/}"
 
-GNOME = "_gn"
-UBUNTU = "_ub"
+GNOME = "gnome"
+UBUNTU = "ubuntu"
 
 # Keys
 

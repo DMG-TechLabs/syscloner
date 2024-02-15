@@ -1,5 +1,5 @@
 import constants
-from metadata import get_os, get_distro, metadata
+from metadata import shorten, metadata
 import get_methods
 from datetime import datetime
 
@@ -63,15 +63,15 @@ class FileBuilder:
         self.include_flatpak_packages()
 
     def build(self, name, distro, shell) -> None:
-        filename = f"{name}{distro}{shell}.{constants.EXTENSION}"
+        filename = f"{name}{shorten(distro)}{shorten(shell)}.{constants.EXTENSION}"
 
         now = datetime.now()
 
         # Metadata
         contents = metadata("name", name) + "\n"
         contents += metadata("date", now.strftime("%d/%m/%Y %H:%M:%S")) + "\n"
-        contents += metadata("distro", get_os(distro)) + "\n"
-        contents += metadata("shell", get_distro(shell)) + "\n"
+        contents += metadata("distro", distro.capitalize()) + "\n"
+        contents += metadata("shell", shell.capitalize()) + "\n"
 
         contents += "\n\n\n"
 

@@ -1,9 +1,9 @@
 import argparse
-from sys import version
 from constants import GNOME, UBUNTU
 from file_builder import FileBuilder
 from file_parser import FileParser
 from installer import Installer
+from metadata import get_desktop_environment
 
 
 def restore(args):
@@ -50,7 +50,9 @@ def backup(args):
     builder = FileBuilder()
     if args.all is not None:
         builder.include_all(args.git_repos)
-        builder.build(args.filename, UBUNTU, GNOME)  # TODO: Check distro and shell
+        desktop_env = get_desktop_environment()
+        # TODO check if desktop environment is supported
+        builder.build(args.filename, desktop_env[0], desktop_env[1])
         return
 
     if args.system is not None:
