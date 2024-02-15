@@ -8,7 +8,6 @@ TODO: Templates
 TODO: Check distro and shell
 TODO: man page
 TODO: documentation
-TODO: autocompletion
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
@@ -20,3 +19,4 @@ DONE: Shorcuts (with System Settings)
 DONE: Shell themes
 DONE: Installer
 DONE: Github repos
+DONE: autocompletion

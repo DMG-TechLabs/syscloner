@@ -4,11 +4,26 @@ EXTENSION = "cvf"   # Config Vault File
 
 SEPARATOR = "{/}"
 
-GNOME = "gnome"
+# Distros
+DEBIAN = "debian"
 UBUNTU = "ubuntu"
+ARCH = "arch"
+MANJARO = "manjaro"
+NIXOS = "nixos"
+MINT = "mint"
+CENTOS = "centos"
+GENTOO = "gentoo"
+OPENSUSE = "opensuse"
+KALI = "kali"
+
+# GUIS
+GNOME = "gnome"
+KDE = "kde"
+XFCE = "xfce"
+MATE = "mate"
+HYPRLAND = "hyprland"
 
 # Keys
-
 SYSTEM_SETTINGS = "{System Settings}"
 APT_PACKAGES = "{Apt Packages}"
 SNAP_PACKAGES = "{Snap Packages}"
