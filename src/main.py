@@ -150,7 +150,7 @@ def main():
             '--all',
             required=False,
             action='count',
-            help='include exerying available (Specify git repos path)')
+            help='include everything available (Specify git repos path)')
 
     args_parser.add_argument(
             '-v', '--version',
