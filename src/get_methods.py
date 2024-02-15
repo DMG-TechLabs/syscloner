@@ -101,6 +101,8 @@ def get_dconf():
 
 
 def get_git_repos(path):
+    path = path or "$HOME"  # I dont know if this works
+
     def run_shell_command(command):
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         if result.returncode == 0:
@@ -120,5 +122,10 @@ def get_git_repos(path):
                     if not os.path.exists(os.path.join(full_dir_path, '.gitmodules')):
                         repo_url = run_shell_command(['git', '-C', full_dir_path, 'config', '--get', 'remote.origin.url'])
                         git_repos.append([full_dir_path, repo_url])
+
+    # Removing repos with no remote url
+    for repo in git_repos:
+        if repo[1] == '':
+            git_repos.remove(repo)
 
     return git_repos
