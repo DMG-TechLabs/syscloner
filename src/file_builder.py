@@ -13,6 +13,7 @@ class FileBuilder:
     repository_keys_included = False
     shell_themes_included = False
     apt_repositories_included = False
+    git_repositories_included = False
     ssh_included = False
     configs_included = False
 
@@ -43,14 +44,19 @@ class FileBuilder:
     def include_apt_repositories(self):
         self.apt_repositories_included = True
 
+    def include_git_repositories(self, git_repos_path):
+        self.git_repositories_included = True
+        self.git_repos_path = git_repos_path
+
     def include_ssh(self):
         self.ssh_included = True
 
     def include_configs(self):
         self.configs_included = True
 
-    def include_all(self):
+    def include_all(self, git_repos_path):
         self.include_apt_repositories()
+        self.include_git_repositories(git_repos_path)
         self.include_repository_keys()
         self.include_ssh()
         self.include_apt_packages()
@@ -83,6 +89,7 @@ class FileBuilder:
         contents += self.__shell_themes() if self.shell_themes_included else ""
         contents += self.__apt_repositories() if self.apt_repositories_included else ""
         contents += self.__ssh() if self.ssh_included else ""
+        contents += self.__git_repos() if self.git_repositories_included else ""
         contents += self.__configs() if self.configs_included else ""
 
         file = open(filename, "w")
@@ -159,6 +166,18 @@ class FileBuilder:
                 contents += pair[1] + "\n\n"
         except FileNotFoundError:
             print("Error with ssh")
+            contents += "Error\n"
+        contents += constants.SEPARATOR + "\n\n\n"
+        return contents
+
+    def __git_repos(self):
+        contents = constants.GIT_REPOSITORIES + "\n"
+        try:
+            for pair in get_methods.get_git_repos(self.git_repos_path):
+                contents += pair[0] + "\n"
+                contents += pair[1] + "\n\n"
+        except FileNotFoundError:
+            print("Error with git repos")
             contents += "Error\n"
         contents += constants.SEPARATOR + "\n\n\n"
         return contents

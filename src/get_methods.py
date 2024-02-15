@@ -1,3 +1,4 @@
+from pdb import run
 import shutil
 import os
 import subprocess
@@ -94,5 +95,37 @@ def get_shell_themes():
         data = file.read()
     return data
 
+
 def get_dconf():
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
+
+
+def get_git_repos(path):
+    path = path or "$HOME"  # I dont know if this works
+
+    def run_shell_command(command):
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode == 0:
+            return result.stdout.strip()
+        else:
+            return ""
+
+    git_repos = list()
+
+    for root, dirs, files in os.walk(path):
+        for d in dirs:
+            full_dir_path = os.path.join(root, d)
+            git_dir = os.path.join(full_dir_path, '.git')
+            if os.path.exists(git_dir):
+                git_output = run_shell_command(['git', '-C', full_dir_path, 'rev-parse', '--is-inside-work-tree'])
+                if git_output == "true":
+                    if not os.path.exists(os.path.join(full_dir_path, '.gitmodules')):
+                        repo_url = run_shell_command(['git', '-C', full_dir_path, 'config', '--get', 'remote.origin.url'])
+                        git_repos.append([full_dir_path, repo_url])
+
+    # Removing repos with no remote url
+    for repo in git_repos:
+        if repo[1] == '':
+            git_repos.remove(repo)
+
+    return git_repos

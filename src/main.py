@@ -12,8 +12,6 @@ def main():
             description='Clones your system',
             epilog='Made by DMG-TechLabs')
 
-    args_parser.add_argument('action', choices=['backup', 'restore'])
-    args_parser.add_argument('name')
 
     args_parser.add_argument("--system", required=False, action='count')
     args_parser.add_argument("--apt", required=False, action='count')
@@ -36,7 +34,7 @@ def main():
         exit(0)
 
     if args.all:
-        builder.include_all()
+        builder.include_all('$HOME') # Get path from command line
         builder.build(args.name, UBUNTU, GNOME) # Check distro and shell
         exit(0)
 
