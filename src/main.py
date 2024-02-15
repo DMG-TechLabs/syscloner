@@ -1,4 +1,5 @@
 import argparse
+from sys import version
 from constants import GNOME, UBUNTU
 from file_builder import FileBuilder
 from file_parser import FileParser
@@ -154,6 +155,7 @@ def main():
     args_parser.add_argument(
             '-v', '--version',
             action='version',
+            version='0.1.0',
             help='print executable version')
 
     args = args_parser.parse_args()
