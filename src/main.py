@@ -1,33 +1,68 @@
+import argparse
 from constants import GNOME, UBUNTU
 from file_builder import FileBuilder
 from file_parser import FileParser
+from installer import FileInstaller
 
 
 def main():
     builder = FileBuilder()
+    args_parser = argparse.ArgumentParser(
+            prog='system-cloner',
+            description='Clones your system',
+            epilog='Made by DMG-TechLabs')
 
-    # builder.include_all()
-    # builder.include_repository_keys()
-    # builder.include_apt_repositories()
-    # builder.include_apt_packages()
-    # builder.include_snap_packages()
-    # builder.include_flatpak_packages()
-    builder.include_git_repositories('/home/konstantinos/personal/repos')
-    builder.build("kdesp73", UBUNTU, GNOME)
 
-    parser = FileParser("kdesp73_ub_gn.cvf")
-    parser.parse()
+    args_parser.add_argument("--system", required=False, action='count')
+    args_parser.add_argument("--apt", required=False, action='count')
+    args_parser.add_argument("--snap", required=False, action='count')
+    args_parser.add_argument("--flatpak", required=False, action='count')
+    args_parser.add_argument("--themes", required=False, action='count')
+    args_parser.add_argument("--exts", required=False, action='count')
+    args_parser.add_argument("--keys", required=False, action='count')
+    args_parser.add_argument("--ssh", required=False, action='count')
+    args_parser.add_argument("--all", required=False, action='count')
 
-    # print("apt_packages: ", parser.apt_packages)
-    # print("snap_packages: ", parser.snap_packages)
-    # print("flatpak_packages: ", parser.flatpak_packages)
-    # print("apt_repositories: ", parser.apt_repositories)
-    # print("ssh: ", parser.ssh)
-    print("git_repos: ", parser.git_repos)
+    args = args_parser.parse_args()
+    print(args)
 
-    for pair in parser.git_repos:
-        print(pair[0])
-        print(pair[1] + "\n")
+    if args.action == 'restore':
+        parser = FileParser(args.name)
+        parser.parse()
+        installer = FileInstaller(parser)
+        installer.install()
+        exit(0)
+
+    if args.all:
+        builder.include_all('$HOME') # Get path from command line
+        builder.build(args.name, UBUNTU, GNOME) # Check distro and shell
+        exit(0)
+
+    if args.system:
+        builder.include_system_settings()
+
+    if args.apt:
+        builder.include_apt_packages()
+
+    if args.snap:
+        builder.include_snap_packages()
+
+    if args.flatpak:
+        builder.include_flatpak_packages()
+
+    if args.themes:
+        builder.include_shell_themes()
+
+    if args.exts:
+        builder.include_gnome_extensions()
+
+    if args.keys:
+        builder.include_repository_keys()
+
+    if args.ssh:
+        builder.include_ssh()
+
+    builder.build(args.name, UBUNTU, GNOME)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ from file_parser import FileParser
 import install_methods
 
 
-class Installer:
+class FileInstaller:
     def __init__(self, parser: FileParser) -> None:
         self.parser = parser
 
@@ -37,4 +37,4 @@ class Installer:
             install_methods.install_files_from_bytes(self.parser.ssh, "wb")
 
         if self.parser.configs.__len__() != 0:
-            install_methods.install_files_from_bytes(self.parser.configs, "wb")
+            install_methods.install_files_from_bytes(self.parser.configs, "w")
