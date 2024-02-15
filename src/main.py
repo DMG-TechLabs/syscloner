@@ -10,36 +10,36 @@ def restore(args):
     parser.parse()
     installer = Installer(parser)
 
-    if args.all:
+    if args.all is not None:
         installer.include_all()
         installer.install()
         exit(0)
 
-    if args.system:
+    if args.system is not None:
         installer.include_system_settings()
 
-    if args.apt:
+    if args.apt is not None:
         installer.include_apt_packages()
 
-    if args.snap:
+    if args.snap is not None:
         installer.include_snap_packages()
 
-    if args.flatpak:
+    if args.flatpak is not None:
         installer.include_flatpak_packages()
 
-    if args.themes:
+    if args.themes is not None:
         installer.include_shell_themes()
 
-    if args.exts:
+    if args.exts is not None:
         installer.include_gnome_extensions()
 
-    if args.keys:
+    if args.keys is not None:
         installer.include_repository_keys()
 
-    if args.ssh:
+    if args.ssh is not None:
         installer.include_ssh()
 
-    if args.git_repos:
+    if args.git_repos is not None:
         installer.include_git_repositories()
 
     installer.install()
@@ -47,36 +47,36 @@ def restore(args):
 
 def backup(args):
     builder = FileBuilder()
-    if args.all:
+    if args.all is not None:
         builder.include_all(args.git_repos)
         builder.build(args.name, UBUNTU, GNOME)  # TODO: Check distro and shell
         return
 
-    if args.system:
+    if args.system is not None:
         builder.include_system_settings()
 
-    if args.apt:
+    if args.apt is not None:
         builder.include_apt_packages()
 
-    if args.snap:
+    if args.snap is not None:
         builder.include_snap_packages()
 
-    if args.flatpak:
+    if args.flatpak is not None:
         builder.include_flatpak_packages()
 
-    if args.themes:
+    if args.themes is not None:
         builder.include_shell_themes()
 
-    if args.exts:
+    if args.exts is not None:
         builder.include_gnome_extensions()
 
-    if args.keys:
+    if args.keys is not None:
         builder.include_repository_keys()
 
-    if args.ssh:
+    if args.ssh is not None:
         builder.include_ssh()
 
-    if args.git_repos:
+    if args.git_repos is not None:
         builder.include_git_repositories(args.git_repos)
 
     builder.build(args.name, UBUNTU, GNOME)
