@@ -28,3 +28,9 @@ def install_files_from_bytes(files, write_mode):
         with open(file, write_mode) as filename:
             filename.write(file[1])
             filename.close()
+
+
+def install_git_repos(repos):
+    for repo in repos:
+        subprocess.run([f'git clone {repo[1]} {repo[0]}'], stdout=subprocess.PIPE)
+

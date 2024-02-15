@@ -1,12 +1,14 @@
 TODO: Corn jobs
 TODO: Configs
-TODO: Github repos
 TODO: WiFi connections
 TODO: Auto-mount external drives
 TODO: Browser profiles
 TODO: .desktop files
 TODO: Templates
-TODO: Installer
+TODO: Check distro and shell
+TODO: man page
+TODO: documentation
+TODO: autocompletion
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
@@ -16,3 +18,5 @@ DONE: Apt repositories
 DONE: SSH keys
 DONE: Shorcuts (with System Settings)
 DONE: Shell themes
+DONE: Installer
+DONE: Github repos

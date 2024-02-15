@@ -36,5 +36,5 @@ class FileInstaller:
         if self.parser.ssh.__len__() != 0:
             install_methods.install_files_from_bytes(self.parser.ssh, "wb")
 
-        if self.parser.configs.__len__() != 0:
-            install_methods.install_files_from_bytes(self.parser.configs, "w")
+        if self.parser.git_repos.__len__() != 0:
+            install_methods.install_git_repos(self.parser.git_repos)

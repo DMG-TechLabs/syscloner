@@ -38,8 +38,8 @@ def main():
         exit(0)
 
     if args.all:
-        builder.include_all('$HOME') # Get path from command line
-        builder.build(args.name, UBUNTU, GNOME) # Check distro and shell
+        builder.include_all(args.git_repos)
+        builder.build(args.name, UBUNTU, GNOME) # TODO: Check distro and shell
         exit(0)
 
     if args.system:

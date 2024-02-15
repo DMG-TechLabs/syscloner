@@ -16,7 +16,6 @@ class FileParser:
     repository_keys = list()    # 2d array
     ssh = list()  # 2d array
     git_repos = list()  # 2d array
-    configs = list()    # 2d array
 
     def __init__(self, file):
         self.file = open(file, "r")
@@ -92,17 +91,6 @@ class FileParser:
                     self.advance()
                     repo_url = self.__lines[self.__index]
                     self.git_repos.append([repo_path, repo_url])
-                    self.advance()
-
-                    if self.__lines[self.__index] == "":
-                        self.advance()  # Consume blank line
-            elif self.__lines[self.__index] == constants.CONFIGS:
-                self.advance()
-                while self.__lines[self.__index] != constants.SEPARATOR:
-                    key_path = self.__lines[self.__index]
-                    self.advance()
-                    key_bytes = self.__lines[self.__index]
-                    self.configs.append([key_path, key_bytes])
                     self.advance()
 
                     if self.__lines[self.__index] == "":

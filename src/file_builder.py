@@ -15,7 +15,6 @@ class FileBuilder:
     apt_repositories_included = False
     git_repositories_included = False
     ssh_included = False
-    configs_included = False
 
     def __init__(self) -> None:
         pass
@@ -51,9 +50,6 @@ class FileBuilder:
     def include_ssh(self):
         self.ssh_included = True
 
-    def include_configs(self):
-        self.configs_included = True
-
     def include_all(self, git_repos_path):
         self.include_apt_repositories()
         self.include_git_repositories(git_repos_path)
@@ -61,7 +57,6 @@ class FileBuilder:
         self.include_ssh()
         self.include_apt_packages()
         self.include_system_settings()
-        self.include_configs()
         self.include_shell_themes()
         self.include_snap_packages()
         self.include_gnome_extensions()
@@ -179,10 +174,5 @@ class FileBuilder:
         except FileNotFoundError:
             print("Error with git repos")
             contents += "Error\n"
-        contents += constants.SEPARATOR + "\n\n\n"
-        return contents
-
-    def __configs(self):
-        contents = constants.CONFIGS + "\n"
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
