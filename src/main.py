@@ -43,6 +43,9 @@ def restore(args):
     if args.git_repos is not None:
         installer.include_git_repositories()
 
+    if args.apt_repos is not None:
+        installer.include_apt_repositories()
+
     installer.install()
 
 
@@ -81,6 +84,9 @@ def backup(args):
 
     if args.git_repos is not None:
         builder.include_git_repositories(args.git_repos)
+
+    if args.apt_repos is not None:
+        builder.include_apt_repositories()
 
     builder.build(args.filename, UBUNTU, GNOME)
 
@@ -147,6 +153,12 @@ def main():
             required=False,
             action='store',
             help='include git repos (Specify path)')
+
+    args_parser.add_argument(
+            '--apt-repos',
+            required=False,
+            action='count',
+            help='include apt repos')
 
     args_parser.add_argument(
             '--all',

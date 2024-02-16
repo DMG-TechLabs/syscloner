@@ -158,4 +158,3 @@ def get_git_repos(path):
         pair[0] = pair[0].replace(os.path.expanduser('~'), "~")
 
     return git_repos
-

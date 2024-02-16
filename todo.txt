@@ -8,6 +8,7 @@ TODO: Templates
 TODO: Check distro and shell
 TODO: man page
 TODO: documentation
+TODO: Shell themes
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
@@ -16,7 +17,6 @@ DONE: Flatpak packages
 DONE: Apt repositories
 DONE: SSH keys
 DONE: Shorcuts (with System Settings)
-DONE: Shell themes
 DONE: Installer
 DONE: Github repos
 DONE: autocompletion
