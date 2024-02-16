@@ -128,8 +128,6 @@ def get_ssh_keys():
     return sources
 
 
-print(get_ssh_keys())
-
 def get_shell_themes():
     """
     Returns the shell themes as bytes of a zip file
