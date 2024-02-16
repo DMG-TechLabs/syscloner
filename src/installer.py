@@ -73,8 +73,6 @@ class Installer:
         self.__install_ssh()
         self.__install_git_repos()
 
-        succ("Installation complete")
-
     def __install_apt_packages(self):
         if self.apt_packages_included and self.parser.apt_packages != []:
             install_methods.install_apt_packages(self.parser.apt_packages)

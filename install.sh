@@ -4,7 +4,7 @@ exe="syscloner"
 
 
 if [ "$1" == "clean" ]; then
-    # TODO uninstall
+    # TODO: uninstall
     echo "[INFO] Application uninstalled successfully"
     exit 0
 fi
@@ -46,7 +46,7 @@ if [ -f "$exe" ]; then
     echo "[INFO] Installation completed successfully."
 else
     echo "$exe is not built. Building..."
-    # TODO build executable
+    # TODO: build executable
 
     if [[ $? == 0 ]]; then
         ./install.sh

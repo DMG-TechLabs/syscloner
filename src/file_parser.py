@@ -3,6 +3,10 @@ from logging import erro, info
 
 
 class FileParser:
+    """Class that parses `.cvf` files
+    After parsing the values are stores inside the parser object for the installer to use
+    """
+    
     # Private (i hate this)
     __index = 0
     __lines = []
@@ -30,6 +34,7 @@ class FileParser:
 
     def parse(self):
         while self.__index < self.__lines.__len__():
+            # TODO: parse metadata
             if self.__lines[self.__index] == constants.SYSTEM_SETTINGS:
                 self.advance()
                 self.system_settings = self.__lines[self.__index]
@@ -98,4 +103,5 @@ class FileParser:
                         self.advance()  # Consume blank line
             self.advance()
 
-        info("Parsing completed successfully")
+
+print(FileParser.__doc__)

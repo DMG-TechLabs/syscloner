@@ -63,8 +63,8 @@ class FileBuilder:
         self.include_gnome_extensions()
         self.include_flatpak_packages()
 
-    def build(self, name, distro, shell) -> None:
-        filename = f"{name}{shorten(distro)}{shorten(shell)}.{constants.EXTENSION}"
+    def build(self, name, distro, gui) -> None:
+        filename = f"{name}{shorten(distro)}{shorten(gui)}.{constants.EXTENSION}"
 
         now = datetime.now()
 
@@ -72,7 +72,7 @@ class FileBuilder:
         contents = metadata("name", name) + "\n"
         contents += metadata("date", now.strftime("%d/%m/%Y %H:%M:%S")) + "\n"
         contents += metadata("distro", distro.capitalize()) + "\n"
-        contents += metadata("shell", shell.capitalize()) + "\n"
+        contents += metadata("gui", gui.capitalize()) + "\n"
 
         contents += "\n\n\n"
 
@@ -90,8 +90,6 @@ class FileBuilder:
         file = open(filename, "w")
         file.write(contents)
         file.close()
-
-        succ("File written successfully")
 
     def __system_settings(self):
         contents = constants.SYSTEM_SETTINGS + "\n"

@@ -4,16 +4,19 @@ from file_parser import FileParser
 from installer import Installer
 from metadata import get_desktop_environment
 from support import check_desktop_env
-from logging import debu, info
+from logging import debu, info, succ
+
 
 def restore(args):
     parser = FileParser(args.name)
     parser.parse()
+    info("Parsing completed successfully")
     installer = Installer(parser)
 
     if args.all is not None:
         installer.include_all()
         installer.install()
+        succ("Installation complete")
         exit(0)
 
     if args.system is not None:
@@ -47,6 +50,7 @@ def restore(args):
         installer.include_apt_repositories()
 
     installer.install()
+    succ("Installation complete")
 
 
 def backup(args):
@@ -60,6 +64,7 @@ def backup(args):
             exit(1)
         else:
             builder.build(args.filename, desktop_env[0], desktop_env[1])
+            succ("File written successfully")
             return
 
     if args.system is not None:
@@ -106,6 +111,7 @@ def backup(args):
         exit(1)
     else:
         builder.build(args.filename, desktop_env[0], desktop_env[1])
+        succ("File written successfully")
 
 
 def main():

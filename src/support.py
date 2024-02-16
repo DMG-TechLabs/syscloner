@@ -28,6 +28,11 @@ def check_gui(gui):
 
 
 def check_desktop_env(env):
+    if not check_distro(env[0]) and not check_gui(env[1]):
+        erro(f"Distro '{env[0]}' is not currently supported!")
+        erro(f"GUI '{env[1]}'is not currently supported!")
+        return False
+
     if not check_distro(env[0]):
         erro(f"Distro '{env[0]}' is not currently supported!")
         return False
