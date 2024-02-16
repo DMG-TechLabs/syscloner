@@ -1,10 +1,18 @@
 from constants import SSH
-
-
-from pdb import run
 import shutil
 import os
 import subprocess
+from logger import warn
+import sys
+
+
+def run_shell_command(command):
+    result = subprocess.run(command,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            text=True)
+
+    return result.stdout.strip() if result.returncode == 0 else ""
 
 
 def get_bytes(file):
@@ -19,24 +27,15 @@ def get_bytes(file):
     return temp
 
 
-def get_packages(source):
-    """
-    Returns packages using shell script (apt, snap, flatpack) as a list
-    """
-
-    result = subprocess.run([f'./scripts/{source}.sh'], stdout=subprocess.PIPE)
-    return str(result.stdout).replace("b'", "").replace("'", "")
-
-
 def get_apt_packages():
     """
     Returns apt packages using shell script as a list
     """
 
-    list = get_packages("apt").split("\\n")
-    list.remove("Listing...")
-    list.remove('')
-    return list
+    result = run_shell_command(['apt', 'list', '--installed'])
+    package_names = [line.split('/')[0] for line in result.split('\n') if line.strip()]
+
+    return package_names
 
 
 def get_apt_repos():
@@ -44,15 +43,14 @@ def get_apt_repos():
     Returns  apt repositories using shell script as a list
     """
 
-    apt_repos = get_packages("apt_repos").split("\\n")
-    return apt_repos
+    warn("Not implemented yet without shell script")
+    return []
 
 
 def get_gnome_extensions():
     """
     Returns gnome extensions using shell script as a list
     """
-
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
     extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
     list = extensions.split("\\n")
@@ -60,14 +58,16 @@ def get_gnome_extensions():
     return list
 
 
+
 def get_flatpak_packages():
     """
     Returns flatpak packages using shell script as a list
     """
 
-    list = get_packages("flatpak").split("\\n")
-    list.remove('')
-    return list
+    result = run_shell_command(['flatpak', 'list'])
+    package_names = [line.split('\t', 1)[0] for line in result.split('\n') if line.strip()]
+
+    return package_names
 
 
 def get_snap_packages():
@@ -75,9 +75,10 @@ def get_snap_packages():
     Returns snap packages using shell script as a list
     """
 
-    list = get_packages("snap").split("\\n")
-    list.remove('')
-    return list
+    result = run_shell_command(['snap', 'list'])
+    package_names = [line.split()[0] for line in result.split('\n')[1:] if line.strip()]
+
+    return package_names
 
 
 def get_sources_keys():
@@ -110,17 +111,35 @@ def get_ssh_keys():
 
     files = []
     sources = []
-    w = os.walk(os.path.expanduser('~')+"/.ssh")
+    home = os.path.expanduser('~')
+    w = os.walk(home + "/.ssh")
     for root, dirs, files_list in w:
         files = files_list
 
-
     for i in range(0, len(files)-1):
-        file = files[i]
-        result = subprocess.run([f'./scripts/ssh.sh', file], stdout=subprocess.PIPE).stdout
+        filename = files[i]
+
+        contents = ""
+        try:
+            with open(f'{home}/.ssh/{filename}', 'rb') as file:
+                try:
+                    contents = file.read().decode('utf-8')
+                except UnicodeDecodeError:
+                    try_encodings = ['latin-1', 'utf-16']
+                    for encoding in try_encodings:
+                        try:
+                            contents = file.read().decode(encoding)
+                            break
+                        except UnicodeDecodeError:
+                            continue
+                    else:
+                        return []
+        except FileNotFoundError:
+            print(f"File '{filename}' not found in ~/.ssh directory.")
+
         sources.append([])
-        sources[i].append(file)
-        sources[i].append(str(result)) 
+        sources[i].append(filename)
+        sources[i].append(str(contents))
 
     for source in sources:
         source[0] = "~/.ssh/" + source[0]
@@ -174,12 +193,6 @@ def get_git_repos(path):
 
     path = path or "$HOME"  # I dont know if this works
 
-    def run_shell_command(command):
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        if result.returncode == 0:
-            return result.stdout.strip()
-        else:
-            return ""
 
     git_repos = list()
     not_valid_repos = []
