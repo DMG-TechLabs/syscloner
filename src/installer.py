@@ -1,6 +1,7 @@
 import shutil
 from file_parser import FileParser
 import install_methods
+from logging import warn
 
 
 class Installer:
@@ -101,7 +102,7 @@ class Installer:
     def __install_apt_repos(self):
         # TODO: apt repos
         if self.apt_repositories_included:
-            print("Installation not implemented yet.")
+            warn("Installation not implemented yet.")
 
     def __install_repo_keys(self):
         if self.repository_keys_included and self.parser.repository_keys.__len__() != 0:

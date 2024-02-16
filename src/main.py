@@ -4,7 +4,7 @@ from file_parser import FileParser
 from installer import Installer
 from metadata import get_desktop_environment
 from support import check_desktop_env
-
+from logging import debu
 
 def restore(args):
     parser = FileParser(args.name)
@@ -179,7 +179,7 @@ def main():
             help='print executable version')
 
     args = args_parser.parse_args()
-    print(args)
+    debu(args)
 
     if args.action == 'restore':
         restore(args)

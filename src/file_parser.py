@@ -1,4 +1,5 @@
 import constants
+from logging import erro
 
 
 class FileParser:
@@ -22,7 +23,7 @@ class FileParser:
         try:
             self.__lines = self.file.read().split("\n")
         except FileNotFoundError:
-            print("File not found. Aborting parsing...\n")
+            erro("File not found. Aborting parsing...\n")
 
     def advance(self):
         self.__index += 1

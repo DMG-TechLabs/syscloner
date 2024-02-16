@@ -2,6 +2,7 @@ import constants
 from metadata import shorten, metadata
 import get_methods
 from datetime import datetime
+from logging import info, erro
 
 
 class FileBuilder:
@@ -90,7 +91,7 @@ class FileBuilder:
         file.write(contents)
         file.close()
 
-        print("File written successfully")
+        info("File written successfully")
 
     def __system_settings(self):
         contents = constants.SYSTEM_SETTINGS + "\n"
@@ -141,7 +142,7 @@ class FileBuilder:
             contents += str(get_methods.get_shell_themes())
         except FileNotFoundError:
             contents += "Error\n"
-            print("Error with shell themes")
+            erro("Error with shell themes")
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
 
@@ -159,7 +160,7 @@ class FileBuilder:
                 contents += pair[0] + "\n"
                 contents += pair[1] + "\n\n"
         except FileNotFoundError:
-            print("Error with ssh")
+            erro("Error with ssh")
             contents += "Error\n"
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
