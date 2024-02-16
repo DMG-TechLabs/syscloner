@@ -1,4 +1,5 @@
 import os
+import re
 
 
 def get_desktop_environment():
@@ -21,6 +22,29 @@ def metadata(key, value):
     metadata += f"{key}: {value}"
     metadata += "}"
     return metadata
+
+
+def is_metadata(str):
+    pattern = r'^\{[^\{\}]+:\s*[^\{\}]+\}$'
+
+    if re.match(pattern, str):
+        return True
+    else:
+        return False
+
+
+def parse_metadata(str):
+    """Parses cvf file's metadata
+    From {key: value} to [key, value]
+    """
+
+    str = str.strip('{}')
+    key, value = str.split(':', 1)
+
+    key = key.strip()
+    value = value.strip()
+
+    return [key, value]
 
 
 def shorten(str):

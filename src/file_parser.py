@@ -1,5 +1,7 @@
 import constants
-from logging import erro, info
+from logging import erro, info, debu
+
+from metadata import is_metadata, metadata, parse_metadata
 
 
 class FileParser:
@@ -10,6 +12,8 @@ class FileParser:
     # Private (i hate this)
     __index = 0
     __lines = []
+
+    metadata = dict()
 
     system_settings = b""
     shell_themes = b""
@@ -34,7 +38,12 @@ class FileParser:
 
     def parse(self):
         while self.__index < self.__lines.__len__():
-            # TODO: parse metadata
+            if is_metadata(self.__lines[self.__index]):
+                pair = parse_metadata(self.__lines[self.__index])
+                if pair[0] == 'distro' or pair[0] == 'gui':
+                    self.metadata[pair[0]] = pair[1].lower()
+                else:
+                    self.metadata[pair[0]] = pair[1]
             if self.__lines[self.__index] == constants.SYSTEM_SETTINGS:
                 self.advance()
                 self.system_settings = self.__lines[self.__index]
@@ -102,6 +111,3 @@ class FileParser:
                     if self.__lines[self.__index] == "":
                         self.advance()  # Consume blank line
             self.advance()
-
-
-print(FileParser.__doc__)

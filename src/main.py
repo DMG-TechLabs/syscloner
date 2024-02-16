@@ -3,13 +3,18 @@ from file_builder import FileBuilder
 from file_parser import FileParser
 from installer import Installer
 from metadata import get_desktop_environment
-from support import check_desktop_env
-from logging import debu, info, succ
+from support import check_desktop_env, is_compatible
+from logging import debu, info, succ, erro
 
 
 def restore(args):
     parser = FileParser(args.name)
     parser.parse()
+    
+    if not is_compatible(parser.metadata):
+        erro("Not a compatible file for your system")
+        exit(1)
+
     info("Parsing completed successfully")
     installer = Installer(parser)
 
