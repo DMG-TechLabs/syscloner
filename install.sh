@@ -4,12 +4,18 @@ exe="syscloner"
 
 
 if [ "$1" == "clean" ]; then
-    # TODO: uninstall
+    sudo rm /usr/bin/$exe
+    sudo /etc/bash_completion.d/$exe
+    sudo rm /usr/share/zsh/functions/Completion/_$exe 
+    sudo rm /usr/share/man/man8/$exe.8.gz
+
     echo "[INFO] Application uninstalled successfully"
     exit 0
 fi
 
 if [ -f "$exe" ]; then
+    # TODO: install requirements
+
     # Install the executable
     sudo cp ./$exe /usr/bin/$exe
     if [ $? -ne 0 ]; then
@@ -19,7 +25,7 @@ if [ -f "$exe" ]; then
     echo "[INFO] $exe installed successfully"
 
     # Install Bash completion
-    sudo install -g 0 -o 0 -m 0644 ./completion/$exe-completion.bash /etc/bash_completion.d/cchat
+    sudo install -g 0 -o 0 -m 0644 ./completion/$exe-completion.bash /etc/bash_completion.d/$exe
     if [ $? -ne 0 ]; then
         echo "[ERRO] Failed to install Bash completion"
         exit 1
@@ -27,7 +33,7 @@ if [ -f "$exe" ]; then
     echo "[INFO] bash completion installed successfully"
 
     # Install Zsh completion
-    sudo install -m 644 ./completion/$exe-completion.zsh /usr/share/zsh/functions/Completion/_cchat
+    sudo install -m 644 ./completion/$exe-completion.zsh /usr/share/zsh/functions/Completion/_$exe
     if [ $? -ne 0 ]; then
         echo "[ERRO] Failed to install Zsh completion"
         exit 1
