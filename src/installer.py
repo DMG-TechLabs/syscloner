@@ -1,9 +1,14 @@
 import shutil
 from file_parser import FileParser
 import install_methods
+from logger import succ, warn
 
 
 class Installer:
+    """
+    The installer object takes as a parameter a parser object and after some configuring installs everything on the computer
+    """
+
     system_settings_included = False
     apt_packages_included = False
     snap_packages_included = False
@@ -61,6 +66,10 @@ class Installer:
         self.include_flatpak_packages()
 
     def install(self):
+        """
+        The method that starts the installation
+        """
+
         self.__install_apt_packages()
         self.__install_snap_packages()
         self.__install_flatpak_packages()
@@ -101,7 +110,7 @@ class Installer:
     def __install_apt_repos(self):
         # TODO: apt repos
         if self.apt_repositories_included:
-            print("Installation not implemented yet.")
+            warn("Installation not implemented yet.")
 
     def __install_repo_keys(self):
         if self.repository_keys_included and self.parser.repository_keys.__len__() != 0:

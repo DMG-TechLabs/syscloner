@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cat ~/.ssh/$1
+cat ~/.ssh/"$1"

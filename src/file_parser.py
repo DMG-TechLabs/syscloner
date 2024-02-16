@@ -1,10 +1,19 @@
 import constants
+from logger import erro, info, debu
+
+from metadata import is_metadata, metadata, parse_metadata
 
 
 class FileParser:
+    """Class that parses `.cvf` files
+    After parsing the values are stores inside the parser object for the installer to use
+    """
+    
     # Private (i hate this)
     __index = 0
     __lines = []
+
+    metadata = dict()
 
     system_settings = b""
     shell_themes = b""
@@ -22,13 +31,19 @@ class FileParser:
         try:
             self.__lines = self.file.read().split("\n")
         except FileNotFoundError:
-            print("File not found. Aborting parsing...\n")
+            erro("File not found. Aborting parsing...\n")
 
     def advance(self):
         self.__index += 1
 
     def parse(self):
         while self.__index < self.__lines.__len__():
+            if is_metadata(self.__lines[self.__index]):
+                pair = parse_metadata(self.__lines[self.__index])
+                if pair[0] == 'distro' or pair[0] == 'gui':
+                    self.metadata[pair[0]] = pair[1].lower()
+                else:
+                    self.metadata[pair[0]] = pair[1]
             if self.__lines[self.__index] == constants.SYSTEM_SETTINGS:
                 self.advance()
                 self.system_settings = self.__lines[self.__index]

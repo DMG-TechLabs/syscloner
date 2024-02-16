@@ -1,3 +1,6 @@
+from constants import SSH
+
+
 from pdb import run
 from pickle import TRUE
 import shutil
@@ -6,6 +9,10 @@ import subprocess
 
 
 def get_bytes(file):
+    """
+    Returns file contents as bytes
+    """
+
     temp = ""
     with open(file, "rb") as filename:
         temp = filename.read() 
@@ -14,11 +21,19 @@ def get_bytes(file):
 
 
 def get_packages(source):
+    """
+    Returns packages using shell script (apt, snap, flatpack) as a list
+    """
+
     result = subprocess.run([f'./scripts/{source}.sh'], stdout=subprocess.PIPE)
     return str(result.stdout).replace("b'", "").replace("'", "")
 
 
 def get_apt_packages():
+    """
+    Returns apt packages using shell script as a list
+    """
+
     list = get_packages("apt").split("\\n")
     list.remove("Listing...")
     list.remove('')
@@ -37,7 +52,12 @@ def get_apt_repos():
     
     return apt_repos
 
+
 def get_gnome_extensions():
+    """
+    Returns gnome extensions using shell script as a list
+    """
+
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
     extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
     list = extensions.split("\\n")
@@ -46,46 +66,59 @@ def get_gnome_extensions():
 
 
 def get_flatpak_packages():
+    """
+    Returns flatpak packages using shell script as a list
+    """
+
     list = get_packages("flatpak").split("\\n")
     list.remove('')
     return list
 
 
 def get_snap_packages():
+    """
+    Returns snap packages using shell script as a list
+    """
+
     list = get_packages("snap").split("\\n")
     list.remove('')
     return list
 
 
 def get_sources_keys():
+    """
+    Returns apt source keys as a list of [path, bytes]
+    """
+
     files = []
     sources = []
     w = os.walk("/etc/apt")
     for root, dirs, files_list in w:
-        # print(files_list)
         for file in files_list:
             if file.endswith(".gpg") or file.endswith(".asc"):
                 files.append(os.path.join(root, file))
 
-    # print(files)
-
-    for i in range(0,len(files)-1):
+    for i in range(0, len(files)-1):
         file = files[i]
         with open(file, "rb") as filename:
             sources.append([])
             sources[i].append(file)
-            sources[i].append(filename.read()) 
+            sources[i].append(filename.read())
             filename.close()
     return sources
 
 
 def get_ssh_keys():
+    """
+    Returns ssh keys as a list of [path, contents]
+    """
+
     files = []
     sources = []
     w = os.walk(os.path.expanduser('~')+"/.ssh")
     for root, dirs, files_list in w:
-        # print(files_list)
         files = files_list
+
 
     for i in range(0, len(files)-1):
         file = files[i]
@@ -93,25 +126,42 @@ def get_ssh_keys():
         sources.append([])
         sources[i].append(file)
         sources[i].append(str(result)) 
+
+    for source in sources:
+        source[0] = "~/.ssh/" + source[0]
+
     return sources
 
+
 def get_shell_themes():
+    """
+    Returns the shell themes as bytes of a zip file
+    """
+
     data = b""
     name = os.path.expanduser('~')+"/shell-themes-cvf"
     shutil.make_archive(name, 'zip', "/usr/share/themes")
     with open(name, "rb") as file:
         data = file.read()
+
+    os.remove(name)
     return data
 
 
 def get_dconf():
+    """
+    Returns the dconf file as bytes
+    """
+
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
+
 
 def is_substring_in_list(substring, string_list):
     for string in string_list:
         if substring in string:
             return True
     return False
+
 
 def substring_in_list(substring, string_list):
     for string in string_list:
@@ -120,8 +170,13 @@ def substring_in_list(substring, string_list):
     return ""
 
 
-
 def get_git_repos(path):
+    """
+    Returns all the git repos that have a remote, starting from a specific path as a list of
+    [path, remote-url].
+    The method excludes git submodules.
+    """
+
     path = path or "$HOME"  # I dont know if this works
 
     def run_shell_command(command):

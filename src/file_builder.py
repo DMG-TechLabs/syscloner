@@ -2,6 +2,7 @@ import constants
 from metadata import shorten, metadata
 import get_methods
 from datetime import datetime
+from logger import info, erro, succ
 
 
 class FileBuilder:
@@ -62,8 +63,8 @@ class FileBuilder:
         self.include_gnome_extensions()
         self.include_flatpak_packages()
 
-    def build(self, name, distro, shell) -> None:
-        filename = f"{name}{shorten(distro)}{shorten(shell)}.{constants.EXTENSION}"
+    def build(self, name, distro, gui) -> None:
+        filename = f"{name}{shorten(distro)}{shorten(gui)}.{constants.EXTENSION}"
 
         now = datetime.now()
 
@@ -71,7 +72,7 @@ class FileBuilder:
         contents = metadata("name", name) + "\n"
         contents += metadata("date", now.strftime("%d/%m/%Y %H:%M:%S")) + "\n"
         contents += metadata("distro", distro.capitalize()) + "\n"
-        contents += metadata("shell", shell.capitalize()) + "\n"
+        contents += metadata("gui", gui.capitalize()) + "\n"
 
         contents += "\n\n\n"
 
@@ -89,8 +90,6 @@ class FileBuilder:
         file = open(filename, "w")
         file.write(contents)
         file.close()
-
-        print("File written successfully")
 
     def __system_settings(self):
         contents = constants.SYSTEM_SETTINGS + "\n"
@@ -141,7 +140,7 @@ class FileBuilder:
             contents += str(get_methods.get_shell_themes())
         except FileNotFoundError:
             contents += "Error\n"
-            print("Error with shell themes")
+            erro("Error with shell themes")
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
 
@@ -159,7 +158,7 @@ class FileBuilder:
                 contents += pair[0] + "\n"
                 contents += pair[1] + "\n\n"
         except FileNotFoundError:
-            print("Error with ssh")
+            erro("Error with ssh")
             contents += "Error\n"
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
