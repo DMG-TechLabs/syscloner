@@ -1,12 +1,10 @@
 TODO: Corn jobs
-TODO: Configs
 TODO: WiFi connections
 TODO: Auto-mount external drives
 TODO: Browser profiles
 TODO: .desktop files
 TODO: Templates
 TODO: Check distro and shell
-TODO: man page
 TODO: documentation
 TODO: Shell themes
 DONE: System settings
@@ -20,3 +18,4 @@ DONE: Shorcuts (with System Settings)
 DONE: Installer
 DONE: Github repos
 DONE: autocompletion
+DONE: man page

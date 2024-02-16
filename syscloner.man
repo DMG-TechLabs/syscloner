@@ -1,0 +1,63 @@
+.\" Manpage for cchat.
+.\" Contact dmg.techlabs@gmail.com to correct errors or typos.
+.TH man 8 "16 Feb 2024" "0.1.0" "syscloner man page"
+
+.SH NAME
+
+syscloner \- Carry your linux system in a single file
+
+.SH SYNOPSIS
+
+syscloner [backup|restore] [filename] [options]
+
+.SH DESCRIPTION
+
+A configurable tool to backup and restore your linux system from a single file
+
+.SH COMMANDS
+
+action {backup,restore}
+filename
+
+.SH OPTIONS
+
+-h, --help                show help message
+
+--system                  include system settings
+
+--apt                     include apt packages
+
+--snap                    include snap packages
+
+--flatpak                 include flatpak packages
+
+--themes                  include shell themes
+
+--exts                    include shell extensions
+
+--keys                    include repository keys
+
+--ssh                     include ssh keys
+
+--git-repos GIT_REPOS     include git repos (Specify path)
+
+--apt-repos               include apt repos
+
+--all                     include everything available (Specify git repos path)
+
+-v, --version             print executable version
+
+
+.SH EXAMPLES
+
+Backup: syscloner backup mysystem --all --git-repos=~/repos
+
+Restore: syscloner restore mysystem_ub_gn.cvf --all
+
+.SH BUGS
+
+No known bugs
+
+.SH AUTHOR
+
+DMG TechLabs (dmg.techlabs@gmail.com)

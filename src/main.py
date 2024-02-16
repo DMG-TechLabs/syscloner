@@ -94,7 +94,7 @@ def backup(args):
 def main():
     args_parser = argparse.ArgumentParser(
             prog='system-cloner',
-            description='Clones your system',
+            description='A configurable tool to backup and restore your linux system from a single file',
             epilog='Made by DMG-TechLabs')
 
     args_parser.add_argument('action', choices=['backup', 'restore'])
