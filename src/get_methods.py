@@ -142,7 +142,7 @@ def get_git_repos(path):
                     repo_url = run_shell_command(['git', '-C', full_dir_path, 'config', '--get', 'remote.origin.url'])
                     
                     if repo_url != "":
-                        git_repos.append([full_dir_path, repo_url])
+                        git_repos.append([os.path.normpath(full_dir_path), repo_url])
             
             submodule_path = os.path.join(full_dir_path, '.gitmodules')
             if(os.path.exists(submodule_path)):
@@ -154,4 +154,8 @@ def get_git_repos(path):
                     not_valid_repos.append(full_dir_path+"/"+substring_in_list("path", lines).replace("\t", "").replace("path = ",""))
                 continue
 
+    for pair in git_repos:
+        pair[0] = pair[0].replace(os.path.expanduser('~'), "~")
+
     return git_repos
+
