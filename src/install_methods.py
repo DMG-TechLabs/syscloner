@@ -50,7 +50,7 @@ def install_files_from_bytes(files, write_mode):
     """
 
     for file in files:
-        with open(file, write_mode) as filename:
+        with open(file[0], write_mode) as filename:
             filename.write(file[1])
             filename.close()
 

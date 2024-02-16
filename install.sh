@@ -10,7 +10,7 @@ if [ "$1" == "clean" ]; then
     sudo rm /usr/share/man/man8/$exe.8.gz
     rm -r build
     rm -r dist
-    rm main.spec
+    rm *.spec
 
     echo "[INFO] Application uninstalled successfully"
     exit 0

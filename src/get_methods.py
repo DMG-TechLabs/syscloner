@@ -1,3 +1,6 @@
+from constants import SSH
+
+
 from pdb import run
 import shutil
 import os
@@ -111,14 +114,21 @@ def get_ssh_keys():
     for root, dirs, files_list in w:
         files = files_list
 
+
     for i in range(0, len(files)-1):
         file = files[i]
         result = subprocess.run([f'./scripts/ssh.sh', file], stdout=subprocess.PIPE).stdout
         sources.append([])
         sources[i].append(file)
         sources[i].append(str(result)) 
+
+    for source in sources:
+        source[0] = "~/.ssh/" + source[0]
+
     return sources
 
+
+print(get_ssh_keys())
 
 def get_shell_themes():
     """
