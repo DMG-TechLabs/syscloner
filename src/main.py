@@ -8,9 +8,9 @@ from logging import debu, info, succ, erro
 
 
 def restore(args):
-    parser = FileParser(args.name)
+    parser = FileParser(args.filename)
     parser.parse()
-    
+
     if not is_compatible(parser.metadata):
         erro("Not a compatible file for your system")
         exit(1)
