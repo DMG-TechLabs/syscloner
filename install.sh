@@ -8,16 +8,17 @@ if [ "$1" == "clean" ]; then
     sudo /etc/bash_completion.d/$exe
     sudo rm /usr/share/zsh/functions/Completion/_$exe 
     sudo rm /usr/share/man/man8/$exe.8.gz
+    rm -r build
+    rm -r dist
+    rm main.spec
 
     echo "[INFO] Application uninstalled successfully"
     exit 0
 fi
 
-if [ -f "$exe" ]; then
-    # TODO: install requirements
-
+if [ -f "./dist/main" ]; then
     # Install the executable
-    sudo cp ./$exe /usr/bin/$exe
+    sudo cp ./dist/main /usr/bin/$exe
     if [ $? -ne 0 ]; then
         echo "[ERRO] Failed to copy the executable to /usr/bin/"
         exit 1
@@ -52,7 +53,8 @@ if [ -f "$exe" ]; then
     echo "[INFO] Installation completed successfully."
 else
     echo "$exe is not built. Building..."
-    # TODO: build executable
+    pip install -r requirements.txt
+    pyinstaller --onefile src/main.py
 
     if [[ $? == 0 ]]; then
         ./install.sh
