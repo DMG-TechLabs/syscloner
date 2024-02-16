@@ -4,7 +4,7 @@ from file_parser import FileParser
 from installer import Installer
 from metadata import get_desktop_environment
 from support import check_desktop_env, is_compatible
-from logging import debu, info, succ, erro
+from logger import debu, info, succ, erro
 
 
 def restore(args):

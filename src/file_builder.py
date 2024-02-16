@@ -2,7 +2,7 @@ import constants
 from metadata import shorten, metadata
 import get_methods
 from datetime import datetime
-from logging import info, erro, succ
+from logger import info, erro, succ
 
 
 class FileBuilder:

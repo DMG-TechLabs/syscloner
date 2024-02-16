@@ -1,7 +1,7 @@
 import shutil
 from file_parser import FileParser
 import install_methods
-from logging import succ, warn
+from logger import succ, warn
 
 
 class Installer:

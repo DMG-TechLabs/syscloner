@@ -1,5 +1,5 @@
 import constants
-from logging import erro, info, debu
+from logger import erro, info, debu
 
 from metadata import is_metadata, metadata, parse_metadata
 

@@ -1,5 +1,5 @@
-from logging import erro, warn
-from constants import MANJARO, UBUNTU, XUBUNTU, LUBUNTU, GNOME, DEBIAN, ARCH
+from logger import erro, warn
+from constants import MANJARO, UBUNTU, GNOME, DEBIAN, ARCH
 from metadata import get_desktop_environment
 
 debian_based = [
