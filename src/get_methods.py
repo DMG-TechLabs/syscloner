@@ -1,4 +1,5 @@
 from pdb import run
+from pickle import TRUE
 import shutil
 import os
 import subprocess
@@ -25,9 +26,16 @@ def get_apt_packages():
 
 
 def get_apt_repos():
-    apt_repos = get_packages("apt_repos").split("\\n")
+    apt_repos = list()
+    char_to_cut = ''
+    
+    apt_repo_path = get_packages("apt_repos_paths").split("\\n")
+    apt_repo_url = get_packages("apt_repos_url").split("\\n")
+    
+    for i in range(len(apt_repo_url)):
+        apt_repos.append([apt_repo_path[i], apt_repo_url[i].replace(":", "")])
+    
     return apt_repos
-
 
 def get_gnome_extensions():
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
