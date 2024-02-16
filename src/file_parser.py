@@ -1,5 +1,5 @@
 import constants
-from logging import erro
+from logging import erro, info
 
 
 class FileParser:
@@ -97,3 +97,5 @@ class FileParser:
                     if self.__lines[self.__index] == "":
                         self.advance()  # Consume blank line
             self.advance()
+
+        info("Parsing completed successfully")

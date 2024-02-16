@@ -4,7 +4,7 @@ from file_parser import FileParser
 from installer import Installer
 from metadata import get_desktop_environment
 from support import check_desktop_env
-from logging import debu
+from logging import debu, info
 
 def restore(args):
     parser = FileParser(args.name)
@@ -53,6 +53,7 @@ def backup(args):
     builder = FileBuilder()
     desktop_env = get_desktop_environment()
     if args.all is not None:
+        info("Including all available options")
         builder.include_all(args.git_repos)
 
         if not check_desktop_env(desktop_env):
@@ -62,33 +63,43 @@ def backup(args):
             return
 
     if args.system is not None:
+        info("System settings included")
         builder.include_system_settings()
 
     if args.apt is not None:
+        info("Apt packages included")
         builder.include_apt_packages()
 
     if args.snap is not None:
+        info("Snap packages included")
         builder.include_snap_packages()
 
     if args.flatpak is not None:
+        info("Flatpak packages included")
         builder.include_flatpak_packages()
 
     if args.themes is not None:
+        info("Shell themes included")
         builder.include_shell_themes()
 
     if args.exts is not None:
+        info("Gnome extensions included")
         builder.include_gnome_extensions()
 
     if args.keys is not None:
+        info("Keys included")
         builder.include_repository_keys()
 
     if args.ssh is not None:
+        info("SSH included")
         builder.include_ssh()
 
     if args.git_repos is not None:
+        info("Git repositories included")
         builder.include_git_repositories(args.git_repos)
 
     if args.apt_repos is not None:
+        info("Apt repositories included")
         builder.include_apt_repositories()
 
     if not check_desktop_env(desktop_env):

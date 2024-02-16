@@ -1,4 +1,4 @@
-from logging import warn
+from logging import erro, warn
 from constants import UBUNTU, GNOME, DEBIAN
 
 supported_distros = [
@@ -29,11 +29,11 @@ def check_gui(gui):
 
 def check_desktop_env(env):
     if not check_distro(env[0]):
-        warn(f"Distro '{env[0]}' is not currently supported!")
+        erro(f"Distro '{env[0]}' is not currently supported!")
         return False
 
     if not check_gui(env[1]):
-        warn(f"GUI '{env[1]}'is not currently supported!")
+        erro(f"GUI '{env[1]}'is not currently supported!")
         return False
 
     return True

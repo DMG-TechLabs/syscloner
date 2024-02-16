@@ -1,7 +1,7 @@
 import shutil
 from file_parser import FileParser
 import install_methods
-from logging import warn
+from logging import succ, warn
 
 
 class Installer:
@@ -72,6 +72,8 @@ class Installer:
         self.__install_repo_keys()
         self.__install_ssh()
         self.__install_git_repos()
+
+        succ("Installation complete")
 
     def __install_apt_packages(self):
         if self.apt_packages_included and self.parser.apt_packages != []:

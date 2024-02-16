@@ -2,7 +2,7 @@ import constants
 from metadata import shorten, metadata
 import get_methods
 from datetime import datetime
-from logging import info, erro
+from logging import info, erro, succ
 
 
 class FileBuilder:
@@ -91,7 +91,7 @@ class FileBuilder:
         file.write(contents)
         file.close()
 
-        info("File written successfully")
+        succ("File written successfully")
 
     def __system_settings(self):
         contents = constants.SYSTEM_SETTINGS + "\n"

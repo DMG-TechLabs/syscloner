@@ -15,5 +15,13 @@ def erro(msg):
     log("ERRO", msg)
 
 
+def succ(msg):
+    log("SUCC", msg)
+
+
+def fail(msg):
+    log("FAIL", msg)
+
+
 def debu(msg):
     log("DEBU", msg)
