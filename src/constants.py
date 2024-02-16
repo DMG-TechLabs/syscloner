@@ -7,8 +7,6 @@ SEPARATOR = "{/}"
 # Distros
 DEBIAN = "debian"
 UBUNTU = "ubuntu"
-LUBUNTU = "lubuntu"
-XUBUNTU = "xubuntu"
 ARCH = "arch"
 MANJARO = "manjaro"
 NIXOS = "nixos"

@@ -5,6 +5,10 @@ from logging import succ, warn
 
 
 class Installer:
+    """
+    The installer object takes as a parameter a parser object and after some configuring installs everything on the computer
+    """
+
     system_settings_included = False
     apt_packages_included = False
     snap_packages_included = False
@@ -62,6 +66,10 @@ class Installer:
         self.include_flatpak_packages()
 
     def install(self):
+        """
+        The method that starts the installation
+        """
+
         self.__install_apt_packages()
         self.__install_snap_packages()
         self.__install_flatpak_packages()

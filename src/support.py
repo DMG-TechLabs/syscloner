@@ -157,13 +157,22 @@ def check_desktop_env(env):
 
 
 def are_in_same_list(lst, element1, element2):
-    return element1 in lst and element2 in lst
+    def is_substring_in_list(substring, string_list):
+        for string in string_list:
+            if substring in string:
+                return True
+        return False
+
+    return is_substring_in_list(element1, lst) and is_substring_in_list(element2, lst)
 
 
 def are_distros_compatible(distro1, distro2):
     """
-    Returns true if both distros are debian based or arch based
+    Returns true if both distros are the same or if they are debian based or arch based
     """
+
+    if distro1 == distro2:
+        return True
 
     return are_in_same_list(debian_based, distro1, distro2) or are_in_same_list(arch_based, distro1, distro2)
 

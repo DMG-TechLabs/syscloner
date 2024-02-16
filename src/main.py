@@ -8,6 +8,10 @@ from logging import debu, info, succ, erro
 
 
 def restore(args):
+    """
+    Parses the file provided from the command line and then installs everything depending on the options provided
+    """
+
     parser = FileParser(args.filename)
     parser.parse()
 
@@ -59,6 +63,10 @@ def restore(args):
 
 
 def backup(args):
+    """
+    Writes the system's information to a cvf file depending on the arguments provided from the command line
+    """
+    
     builder = FileBuilder()
     desktop_env = get_desktop_environment()
     if args.all is not None:
