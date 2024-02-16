@@ -5,7 +5,7 @@ exe="syscloner"
 
 if [ "$1" == "clean" ]; then
     sudo rm /usr/bin/$exe
-    sudo /etc/bash_completion.d/$exe
+    sudo rm /etc/bash_completion.d/$exe
     sudo rm /usr/share/zsh/functions/Completion/_$exe 
     sudo rm /usr/share/man/man8/$exe.8.gz
     rm -r build
