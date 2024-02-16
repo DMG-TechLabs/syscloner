@@ -6,6 +6,7 @@ TODO: .desktop files
 TODO: Templates
 TODO: Shell themes
 TODO: Apt repos in different files
+TODO: dont use shell scripts
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
