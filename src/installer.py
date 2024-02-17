@@ -6,7 +6,8 @@ from logger import succ, warn
 
 class Installer:
     """
-    The installer object takes as a parameter a parser object and after some configuring installs everything on the computer
+    The installer object takes as a parameter a parser object and after some
+    configuring installs everything on the computer
     """
 
     system_settings_included = False
@@ -21,6 +22,15 @@ class Installer:
     ssh_included = False
 
     def __init__(self, parser: FileParser) -> None:
+        """
+        Constructor
+
+        Parameters
+        ----------
+        parser: FileParser
+            the parser object containing the cvf file's contents
+        """
+        
         self.parser = parser
 
     def include_system_settings(self):
@@ -67,7 +77,7 @@ class Installer:
 
     def install(self):
         """
-        The method that starts the installation
+        Starts the installation operation
         """
 
         self.__install_apt_packages()

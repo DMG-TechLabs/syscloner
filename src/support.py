@@ -114,6 +114,16 @@ supported_guis = [
 def check_distro(distro):
     """
     Checks if user's distro is currently supported by the program
+
+    Parameters
+    ----------
+    distro: string
+        the distro to check if it's supported
+
+    Returns
+    -------
+    boolean
+        true if it is supported
     """
 
     for d in supported_distros:
@@ -126,6 +136,16 @@ def check_distro(distro):
 def check_gui(gui):
     """
     Checks if user's gui is currently supported by the program
+
+    Parameters
+    ----------
+    gui: string
+        the gui to check if it's supported
+
+    Returns
+    -------
+    boolean
+        true if it is supported
     """
 
     for d in supported_guis:
@@ -138,6 +158,16 @@ def check_gui(gui):
 def check_desktop_env(env):
     """
     Checks if user's distro and gui are currently supported by the program
+
+    Parameters
+    ----------
+    env: list
+        desktop environment as [distro, gui]
+
+    Returns
+    -------
+    boolean
+        true if both the distro and the gui are supported
     """
 
     if not check_distro(env[0]) and not check_gui(env[1]):
@@ -168,7 +198,18 @@ def are_in_same_list(lst, element1, element2):
 
 def are_distros_compatible(distro1, distro2):
     """
-    Returns true if both distros are the same or if they are debian based or arch based
+    Checks if two linux distros are compatible (arch based or debian based)
+
+    Parameters
+    ----------
+    distro1: string
+    distro2: string
+
+    Returns
+    -------
+    boolean
+        true if both distros are the same or if they are debian based or
+        arch based
     """
 
     if distro1 == distro2:
@@ -179,7 +220,18 @@ def are_distros_compatible(distro1, distro2):
 
 def is_compatible(metadata):
     """
-    Checks if file metadata and desktop environment (distro, gui) are compatible
+    Checks if file metadata and desktop environment (distro, gui)
+    are compatible
+
+    Parameters
+    ----------
+    metadata: dictionary
+        parser object's metadata field
+
+    Returns
+    -------
+    boolean
+        true if distros are compatible and guis are the same
     """
 
     env = get_desktop_environment()
