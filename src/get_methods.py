@@ -27,14 +27,33 @@ def get_apt_packages():
 
 def get_apt_repos():
     apt_repos = list()
-    char_to_cut = ''
     
-    apt_repo_path = get_packages("apt_repos_paths").split("\\n")
-    apt_repo_url = get_packages("apt_repos_url").split("\\n")
+    result = subprocess.run(['egrep', '-r', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
+    apt_repos_paths_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
+
+    result = subprocess.run(['egrep', '-rl', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
+    apt_repos_paths = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
+
+    result = subprocess.run(['egrep', '-r', '-h', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
+    apt_repos_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
     
-    for i in range(len(apt_repo_url)):
-        apt_repos.append([apt_repo_path[i], apt_repo_url[i].replace(":", "")])
-    
+    for i in range(len(apt_repos_paths)):
+        apt_repos.append([apt_repos_paths[i]])
+        for j in range(len(apt_repos_paths_urls)):
+            for k in range(len(apt_repos_urls)):
+                string = str()
+                string = apt_repos_paths[i] + ":" + apt_repos_urls[k]
+                if string == apt_repos_paths_urls[j]:
+                    l = len(apt_repos[i])
+                    while l > 0:
+                        if len(apt_repos[i]) == 1:
+                            apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
+                            break
+                        elif apt_repos_urls[k] != apt_repos[i][l - 1]:
+                            apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
+                            break
+                        l = l - 1
+        
     return apt_repos
 
 def get_gnome_extensions():
