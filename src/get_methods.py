@@ -61,22 +61,14 @@ def get_apt_repos():
     result = subprocess.run(['egrep', '-r', '-h', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
     apt_repos_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
 
-    for i in range(len(apt_repos_paths)):
+    for i in range(len(apt_repos_paths) - 1):
         apt_repos.append([apt_repos_paths[i]])
         for j in range(len(apt_repos_paths_urls)):
             for k in range(len(apt_repos_urls)):
                 string = str()
                 string = apt_repos_paths[i] + ":" + apt_repos_urls[k]
                 if string == apt_repos_paths_urls[j]:
-                    l = len(apt_repos[i])
-                    while l > 0:
-                        if len(apt_repos[i]) == 1:
-                            apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
-                            break
-                        elif apt_repos_urls[k] != apt_repos[i][l - 1]:
-                            apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
-                            break
-                        l = l - 1
+                    apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
 
     # Clean double lines
     cleaned_repos = []
@@ -85,7 +77,6 @@ def get_apt_repos():
         cleaned_repos.append(cleaned_repo)
 
     return cleaned_repos
-
 
 def get_gnome_extensions():
     """
