@@ -149,7 +149,6 @@ class FileParser:
         return lst
 
 
-
 if __name__ == "__main__":
     parser = FileParser('./test_ub_gn.cvf')
     parser.parse()

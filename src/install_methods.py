@@ -71,9 +71,9 @@ def install_gnome_extensions(extensions):
     install_packages("gnome-extensions", extensions)
 
 
-def install_files_from_bytes(files, write_mode):
+def write_files(files, write_mode):
     """
-    Write files multiple files specifying the write mode
+    Write multiple files specifying the write mode
 
     Parameters
     ----------

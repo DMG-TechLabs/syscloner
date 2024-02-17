@@ -109,26 +109,25 @@ class Installer:
 
     def __install_system_settings(self):
         if self.system_settings_included and self.parser.system_settings != b"":
-            install_methods.install_files_from_bytes(list(['~/.config/dconf/user', self.parser.system_settings]), "wb")
+            install_methods.write_files(list(['~/.config/dconf/user', self.parser.system_settings]), "wb")
 
     def __install_shell_themes(self):
         if self.shell_themes_included and self.parser.shell_themes != b"":
             zip = '/usr/share/themes/shell-themes.zip'
-            install_methods.install_files_from_bytes(list([zip, self.parser.shell_themes]), "wb")
+            install_methods.write_files(list([zip, self.parser.shell_themes]), "wb")
             shutil.unpack_archive(zip)
 
     def __install_apt_repos(self):
-        # TODO: apt repos
-        if self.apt_repositories_included:
-            warn("Installation not implemented yet.")
+        if self.apt_repositories_included and self.parser.apt_repositories.__len__() != 0:
+            install_methods.write_files(self.parser.apt_repositories, "w")
 
     def __install_repo_keys(self):
         if self.repository_keys_included and self.parser.repository_keys.__len__() != 0:
-            install_methods.install_files_from_bytes(self.parser.repository_keys, "wb")
+            install_methods.write_files(self.parser.repository_keys, "wb")
 
     def __install_ssh(self):
         if self.ssh_included and self.parser.ssh.__len__() != 0:
-            install_methods.install_files_from_bytes(self.parser.ssh, "wb")
+            install_methods.write_files(self.parser.ssh, "wb")
 
     def __install_git_repos(self):
         if self.git_repositories_included and self.parser.git_repos.__len__() != 0:
