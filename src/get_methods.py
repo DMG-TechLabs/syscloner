@@ -1,6 +1,7 @@
 import shutil
 import os
 import subprocess
+from logger import debu
 
 
 def run_shell_command(command):
@@ -46,7 +47,7 @@ def get_apt_repos():
     Returns
     -------
     list
-        apt repositories
+        apt repositories as [path, line, line, ...]
     """
 
     apt_repos = list()
@@ -77,7 +78,14 @@ def get_apt_repos():
                             break
                         l = l - 1
 
-    return apt_repos
+    # Clean double lines
+    cleaned_repos = []
+    for repo in apt_repos:
+        cleaned_repo = [repo[i] for i in range(len(repo)) if i == 0 or repo[i] != repo[i-1]]
+        cleaned_repos.append(cleaned_repo)
+
+    return cleaned_repos
+
 
 def get_gnome_extensions():
     """
