@@ -101,9 +101,9 @@ class FileBuilder:
         contents += self.__snap_packages() if self.snap_packages_included else ""
         contents += self.__flatpak_packages() if self.flatpak_packages_included else ""
         contents += self.__gnome_extensions() if self.gnome_extensions_included else ""
+        contents += self.__apt_repos() if self.apt_repositories_included else ""
         contents += self.__repository_keys() if self.repository_keys_included else ""
         contents += self.__shell_themes() if self.shell_themes_included else ""
-        contents += self.__apt_repositories() if self.apt_repositories_included else ""
         contents += self.__ssh() if self.ssh_included else ""
         contents += self.__git_repos() if self.git_repositories_included else ""
 
@@ -164,13 +164,6 @@ class FileBuilder:
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
 
-    def __apt_repositories(self):
-        contents = constants.APT_REPOSITORIES + "\n"
-        for repo in get_methods.get_apt_repos():
-            contents += repo + "\n"
-        contents += constants.SEPARATOR + "\n\n\n"
-        return contents
-
     def __ssh(self):
         contents = constants.SSH + "\n"
         try:
@@ -188,5 +181,17 @@ class FileBuilder:
         for pair in get_methods.get_git_repos(self.git_repos_path):
             contents += pair[0] + "\n"
             contents += pair[1] + "\n\n"
+        contents += constants.SEPARATOR + "\n\n\n"
+        return contents
+
+    def __apt_repos(self):
+        contents = constants.APT_REPOSITORIES + "\n"
+        for file in get_methods.get_apt_repos():
+            for line in file:
+                if line == "" or line == "\n":
+                    continue
+                contents += line + "\n"
+            contents += "\n"
+        
         contents += constants.SEPARATOR + "\n\n\n"
         return contents
