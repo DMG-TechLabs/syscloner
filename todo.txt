@@ -5,10 +5,7 @@ TODO: Browser profiles
 TODO: .desktop files
 TODO: Templates
 TODO: Shell themes
-TODO: Apt repos in different files
-TODO: dont use shell scripts
 TODO: Write README.md
-TODO: bash completion issue
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
@@ -24,3 +21,6 @@ DONE: man page
 DONE: Check distro and shell
 DONE: documentation
 DONE: better docs
+DONE: Apt repos in different files
+DONE: dont use shell scripts
+DONE: bash completion issue

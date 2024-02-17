@@ -6,7 +6,7 @@ _system_cloner_completion() {
     words=("backup" "restore")
 
     case "${prev}" in
-        cchat)
+        syscloner)
             COMPREPLY=($(compgen -W "${words[*]}" -- "${cur}"))
             return 0
             ;;
