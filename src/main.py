@@ -6,7 +6,6 @@ from metadata import get_desktop_environment
 from support import check_desktop_env, is_compatible
 from logger import debu, info, succ, erro
 
-
 def restore(args):
     """
     Parses the file provided from the command line and then installs everything depending on the options provided
@@ -216,7 +215,7 @@ def main():
     args_parser.add_argument(
             '-v', '--version',
             action='version',
-            version='0.1.0',
+            version='syscloner 0.1.0',
             help='print executable version')
 
     args = args_parser.parse_args()
