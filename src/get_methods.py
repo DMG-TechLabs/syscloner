@@ -75,6 +75,7 @@ def get_apt_repos():
         
     return apt_repos
 
+
 def get_gnome_extensions():
     """
     Returns
