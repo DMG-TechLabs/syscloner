@@ -1,14 +1,6 @@
-from constants import SSH
-<<<<<<< HEAD
-from pdb import run
-from pickle import TRUE
-=======
->>>>>>> f7d04a80aa5d9447d150ab16d1dca91aae9a870d
 import shutil
 import os
 import subprocess
-from logger import warn
-import sys
 
 
 def run_shell_command(command):
@@ -50,7 +42,6 @@ def get_apt_packages():
 
 
 def get_apt_repos():
-<<<<<<< HEAD
     """
     Returns
     -------
@@ -59,27 +50,16 @@ def get_apt_repos():
     """
 
     apt_repos = list()
-
-    result = subprocess.run(['egrep', '-r', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
-    apt_repos_paths_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
-
-=======
-    apt_repos = list()
     
     result = subprocess.run(['egrep', '-r', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
     apt_repos_paths_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
 
->>>>>>> f7d04a80aa5d9447d150ab16d1dca91aae9a870d
     result = subprocess.run(['egrep', '-rl', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
     apt_repos_paths = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
 
     result = subprocess.run(['egrep', '-r', '-h', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
     apt_repos_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
-<<<<<<< HEAD
-
-=======
     
->>>>>>> f7d04a80aa5d9447d150ab16d1dca91aae9a870d
     for i in range(len(apt_repos_paths)):
         apt_repos.append([apt_repos_paths[i]])
         for j in range(len(apt_repos_paths_urls)):
@@ -96,12 +76,9 @@ def get_apt_repos():
                             apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
                             break
                         l = l - 1
-<<<<<<< HEAD
-
-=======
         
->>>>>>> f7d04a80aa5d9447d150ab16d1dca91aae9a870d
     return apt_repos
+
 
 
 def get_gnome_extensions():
