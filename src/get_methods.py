@@ -22,7 +22,7 @@ def get_bytes(file):
 
     temp = ""
     with open(file, "rb") as filename:
-        temp = filename.read() 
+        temp = filename.read()
         filename.close()
     return temp
 
@@ -50,7 +50,7 @@ def get_apt_repos():
     """
 
     apt_repos = list()
-    
+
     result = subprocess.run(['egrep', '-r', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
     apt_repos_paths_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
 
@@ -59,7 +59,7 @@ def get_apt_repos():
 
     result = subprocess.run(['egrep', '-r', '-h', '^deb.*', '/etc/apt/'], stdout=subprocess.PIPE)
     apt_repos_urls = str(result.stdout).replace("b'", "").replace("'", "").split("\\n")
-    
+
     for i in range(len(apt_repos_paths)):
         apt_repos.append([apt_repos_paths[i]])
         for j in range(len(apt_repos_paths_urls)):
@@ -76,10 +76,8 @@ def get_apt_repos():
                             apt_repos[i] = apt_repos[i] + [apt_repos_urls[k]]
                             break
                         l = l - 1
-        
+
     return apt_repos
-
-
 
 def get_gnome_extensions():
     """
