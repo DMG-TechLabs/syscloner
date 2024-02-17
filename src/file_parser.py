@@ -134,8 +134,8 @@ class FileParser:
             file.append(self.__lines[self.__index])  # Path
             contents = ""
             while self.__lines[self.__index].__len__() != 0 and self.__lines[self.__index] != constants.SEPARATOR:
-                contents += self.__lines[self.__index]
                 self.advance()
+                contents += self.__lines[self.__index] + "\n"
             file.append(contents)
             lst.append(file)
 
@@ -151,8 +151,10 @@ class FileParser:
 
 
 if __name__ == "__main__":
-    parser = FileParser('./apt_ub_gn.cvf')
+    parser = FileParser('./test_ub_gn.cvf')
     parser.parse()
 
-    # print(parser.apt_repositories)
-    print(parser.git_repos)
+    for pair in parser.repository_keys:
+        print(pair[0])
+        print(pair[1])
+        print('\n')
