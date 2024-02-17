@@ -6,6 +6,8 @@ TODO: .desktop files
 TODO: Templates
 TODO: Shell themes
 TODO: Write README.md
+TODO: Test Installer
+TODO: use separator instead of new lines in file and introduce closing tag
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)

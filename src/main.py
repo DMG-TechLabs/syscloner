@@ -219,7 +219,6 @@ def main():
             help='print executable version')
 
     args = args_parser.parse_args()
-    debu(args)
 
     if args.action == 'restore':
         restore(args)
