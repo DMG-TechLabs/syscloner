@@ -6,6 +6,13 @@ from logger import info, erro, succ
 
 
 class FileBuilder:
+    """
+    Generates cvf file
+
+    This class after some configuration using the include methods generates the
+    cvf file using the {key}{/} tags
+    """
+
     system_settings_included = False
     apt_packages_included = False
     snap_packages_included = False
@@ -64,6 +71,19 @@ class FileBuilder:
         self.include_flatpak_packages()
 
     def build(self, name, distro, gui) -> None:
+        """
+        Starts the cvf file building process
+
+        Parameters
+        ----------
+        name: string
+            file name
+        distro: string
+            linux distribution of the system (ubuntu, arch, debian)
+        gui: string
+            gui that the distro uses (gnome, kde, xfce)
+        """
+
         filename = f"{name}{shorten(distro)}{shorten(gui)}.{constants.EXTENSION}"
 
         now = datetime.now()

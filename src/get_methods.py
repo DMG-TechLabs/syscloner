@@ -17,7 +17,10 @@ def run_shell_command(command):
 
 def get_bytes(file):
     """
-    Returns file contents as bytes
+    Returns
+    -------
+    bytes
+        file contents
     """
 
     temp = ""
@@ -29,7 +32,10 @@ def get_bytes(file):
 
 def get_apt_packages():
     """
-    Returns apt packages using shell script as a list
+    Returns
+    -------
+    list
+        apt packages
     """
 
     result = run_shell_command(['apt', 'list', '--installed'])
@@ -40,7 +46,10 @@ def get_apt_packages():
 
 def get_apt_repos():
     """
-    Returns  apt repositories using shell script as a list
+    Returns
+    -------
+    list
+        apt repositories
     """
 
     warn("Not implemented yet without shell script")
@@ -49,19 +58,26 @@ def get_apt_repos():
 
 def get_gnome_extensions():
     """
-    Returns gnome extensions using shell script as a list
+    Returns
+    -------
+    list
+        gnome extensions
     """
+
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
     extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
-    list = extensions.split("\\n")
-    list.remove('')
-    return list
+    lst = extensions.split("\\n")
+    lst.remove('')
+    return lst
 
 
 
 def get_flatpak_packages():
     """
-    Returns flatpak packages using shell script as a list
+    Returns
+    -------
+    list
+        flatpak packages
     """
 
     result = run_shell_command(['flatpak', 'list'])
@@ -72,7 +88,10 @@ def get_flatpak_packages():
 
 def get_snap_packages():
     """
-    Returns snap packages using shell script as a list
+    Returns
+    -------
+    list
+        snap packages
     """
 
     result = run_shell_command(['snap', 'list'])
@@ -83,7 +102,12 @@ def get_snap_packages():
 
 def get_sources_keys():
     """
-    Returns apt source keys as a list of [path, bytes]
+    Returns apt gpg keys
+
+    Returns
+    -------
+    list of [path, bytes]
+        apt source keys
     """
 
     files = []
@@ -106,7 +130,12 @@ def get_sources_keys():
 
 def get_ssh_keys():
     """
-    Returns ssh keys as a list of [path, contents]
+    Returns all ssh files and their contents
+
+    Returns
+    -------
+    list
+        ssh files as [path, contents]
     """
 
     files = []
@@ -149,7 +178,10 @@ def get_ssh_keys():
 
 def get_shell_themes():
     """
-    Returns the shell themes as bytes of a zip file
+    Returns
+    -------
+    bytes
+        the zipped shell themes
     """
 
     data = b""
@@ -164,7 +196,10 @@ def get_shell_themes():
 
 def get_dconf():
     """
-    Returns the dconf file as bytes
+    Returns
+    -------
+    bytes
+        the dconf file
     """
 
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
@@ -186,9 +221,13 @@ def substring_in_list(substring, string_list):
 
 def get_git_repos(path):
     """
-    Returns all the git repos that have a remote, starting from a specific path as a list of
-    [path, remote-url].
-    The method excludes git submodules.
+    Returns all the git repos that have a remote, starting from a specific
+    path. The method excludes git submodules.
+
+    Returns
+    -------
+    list
+        git repos as [path, remote-url]
     """
 
     path = path or "$HOME"  # I dont know if this works

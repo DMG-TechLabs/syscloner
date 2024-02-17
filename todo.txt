@@ -8,6 +8,7 @@ TODO: Shell themes
 TODO: Apt repos in different files
 TODO: dont use shell scripts
 TODO: Write README.md
+TODO: better docs
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)

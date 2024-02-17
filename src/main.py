@@ -10,12 +10,17 @@ from logger import debu, info, succ, erro
 def restore(args):
     """
     Parses the file provided from the command line and then installs everything depending on the options provided
+
+    Parameters
+    ----------
+    args: argparse arguments
+        command line arguments
     """
 
     parser = FileParser(args.filename)
     parser.parse()
 
-    if not is_compatible(parser.metadata):
+    if not is_compatible(parser.file_metadata):
         erro("Not a compatible file for your system")
         exit(1)
 
@@ -64,7 +69,13 @@ def restore(args):
 
 def backup(args):
     """
-    Writes the system's information to a cvf file depending on the arguments provided from the command line
+    Writes the system's information to a cvf file depending on the arguments
+    provided from the command line
+
+    Parameters
+    ----------
+    args: argparse arguments
+        command line arguments
     """
     
     builder = FileBuilder()
