@@ -52,14 +52,31 @@ if [ -f "./dist/main" ]; then
 
     echo "[INFO] Installation completed successfully."
 else
-    echo "$exe is not built. Building..."
+    echo "[WARN] $exe is not built. Building..."
+    
+    # Install pip if not already installed
+    if ! command -v pip > /dev/null 2>&1; then
+        echo "[WARN] pip is not installed"
+        echo "[INFO] Installing..."
+        wget https://bootstrap.pypa.io/get-pip.py
+        python3 get-pip.py
+
+        if [ $? -ne 0 ]; then
+            rm get-pip.py
+            echo "[INFO] pip installed successfully"
+        else
+            echo "[ERRO] Could not install pip. Please install manually before running the script again"
+            exit 1
+        fi
+    fi
+
     pip install -r requirements.txt
     pyinstaller --onefile src/main.py
 
     if [[ $? == 0 ]]; then
         ./install.sh
     else
-        echo "Failed to build $exe"
+        echo "[ERRO] Failed to build $exe"
         exit 1
     fi
 fi
