@@ -1,3 +1,5 @@
+docs/html
+docs/latex
 *.cvf
 
 # Byte-compiled / optimized / DLL files

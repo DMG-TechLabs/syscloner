@@ -3,17 +3,34 @@ from file_builder import FileBuilder
 from file_parser import FileParser
 from installer import Installer
 from metadata import get_desktop_environment
-from support import check_desktop_env
+from support import check_desktop_env, is_compatible
+from logger import debu, info, succ, erro
 
 
 def restore(args):
-    parser = FileParser(args.name)
+    """
+    Parses the file provided from the command line and then installs everything depending on the options provided
+
+    Parameters
+    ----------
+    args: argparse arguments
+        command line arguments
+    """
+
+    parser = FileParser(args.filename)
     parser.parse()
+
+    if not is_compatible(parser.file_metadata):
+        erro("Not a compatible file for your system")
+        exit(1)
+
+    info("Parsing completed successfully")
     installer = Installer(parser)
 
     if args.all is not None:
         installer.include_all()
         installer.install()
+        succ("Installation complete")
         exit(0)
 
     if args.system is not None:
@@ -47,54 +64,78 @@ def restore(args):
         installer.include_apt_repositories()
 
     installer.install()
+    succ("Installation complete")
 
 
 def backup(args):
+    """
+    Writes the system's information to a cvf file depending on the arguments
+    provided from the command line
+
+    Parameters
+    ----------
+    args: argparse arguments
+        command line arguments
+    """
+    
     builder = FileBuilder()
     desktop_env = get_desktop_environment()
     if args.all is not None:
+        info("Including all available options")
         builder.include_all(args.git_repos)
 
         if not check_desktop_env(desktop_env):
             exit(1)
         else:
             builder.build(args.filename, desktop_env[0], desktop_env[1])
+            succ("File written successfully")
             return
 
     if args.system is not None:
+        info("System settings included")
         builder.include_system_settings()
 
     if args.apt is not None:
+        info("Apt packages included")
         builder.include_apt_packages()
 
     if args.snap is not None:
+        info("Snap packages included")
         builder.include_snap_packages()
 
     if args.flatpak is not None:
+        info("Flatpak packages included")
         builder.include_flatpak_packages()
 
     if args.themes is not None:
+        info("Shell themes included")
         builder.include_shell_themes()
 
     if args.exts is not None:
+        info("Gnome extensions included")
         builder.include_gnome_extensions()
 
     if args.keys is not None:
+        info("Keys included")
         builder.include_repository_keys()
 
     if args.ssh is not None:
+        info("SSH included")
         builder.include_ssh()
 
     if args.git_repos is not None:
+        info("Git repositories included")
         builder.include_git_repositories(args.git_repos)
 
     if args.apt_repos is not None:
+        info("Apt repositories included")
         builder.include_apt_repositories()
 
     if not check_desktop_env(desktop_env):
         exit(1)
     else:
         builder.build(args.filename, desktop_env[0], desktop_env[1])
+        succ("File written successfully")
 
 
 def main():
@@ -179,7 +220,7 @@ def main():
             help='print executable version')
 
     args = args_parser.parse_args()
-    print(args)
+    debu(args)
 
     if args.action == 'restore':
         restore(args)

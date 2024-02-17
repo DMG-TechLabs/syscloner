@@ -1,11 +1,28 @@
-from pdb import run
-from pickle import TRUE
+from constants import SSH
 import shutil
 import os
 import subprocess
+from logger import warn
+import sys
+
+
+def run_shell_command(command):
+    result = subprocess.run(command,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            text=True)
+
+    return result.stdout.strip() if result.returncode == 0 else ""
 
 
 def get_bytes(file):
+    """
+    Returns
+    -------
+    bytes
+        file contents
+    """
+
     temp = ""
     with open(file, "rb") as filename:
         temp = filename.read() 
@@ -13,16 +30,18 @@ def get_bytes(file):
     return temp
 
 
-def get_packages(source):
-    result = subprocess.run([f'./scripts/{source}.sh'], stdout=subprocess.PIPE)
-    return str(result.stdout).replace("b'", "").replace("'", "")
-
-
 def get_apt_packages():
-    list = get_packages("apt").split("\\n")
-    list.remove("Listing...")
-    list.remove('')
-    return list
+    """
+    Returns
+    -------
+    list
+        apt packages
+    """
+
+    result = run_shell_command(['apt', 'list', '--installed'])
+    package_names = [line.split('/')[0] for line in result.split('\n') if line.strip()]
+
+    return package_names
 
 
 def get_apt_repos():
@@ -57,80 +76,160 @@ def get_apt_repos():
     return apt_repos
 
 def get_gnome_extensions():
+    """
+    Returns
+    -------
+    list
+        gnome extensions
+    """
+
     extensions = subprocess.run(['gnome-extensions', 'list'], stdout=subprocess.PIPE)
     extensions = str(extensions.stdout).replace("b'", "").replace("'", "")
-    list = extensions.split("\\n")
-    list.remove('')
-    return list
+    lst = extensions.split("\\n")
+    lst.remove('')
+    return lst
+
 
 
 def get_flatpak_packages():
-    list = get_packages("flatpak").split("\\n")
-    list.remove('')
-    return list
+    """
+    Returns
+    -------
+    list
+        flatpak packages
+    """
+
+    result = run_shell_command(['flatpak', 'list'])
+    package_names = [line.split('\t', 1)[0] for line in result.split('\n') if line.strip()]
+
+    return package_names
 
 
 def get_snap_packages():
-    list = get_packages("snap").split("\\n")
-    list.remove('')
-    return list
+    """
+    Returns
+    -------
+    list
+        snap packages
+    """
+
+    result = run_shell_command(['snap', 'list'])
+    package_names = [line.split()[0] for line in result.split('\n')[1:] if line.strip()]
+
+    return package_names
 
 
 def get_sources_keys():
+    """
+    Returns apt gpg keys
+
+    Returns
+    -------
+    list of [path, bytes]
+        apt source keys
+    """
+
     files = []
     sources = []
     w = os.walk("/etc/apt")
     for root, dirs, files_list in w:
-        # print(files_list)
         for file in files_list:
             if file.endswith(".gpg") or file.endswith(".asc"):
                 files.append(os.path.join(root, file))
 
-    # print(files)
-
-    for i in range(0,len(files)-1):
+    for i in range(0, len(files)-1):
         file = files[i]
         with open(file, "rb") as filename:
             sources.append([])
             sources[i].append(file)
-            sources[i].append(filename.read()) 
+            sources[i].append(filename.read())
             filename.close()
     return sources
 
 
 def get_ssh_keys():
+    """
+    Returns all ssh files and their contents
+
+    Returns
+    -------
+    list
+        ssh files as [path, contents]
+    """
+
     files = []
     sources = []
-    w = os.walk(os.path.expanduser('~')+"/.ssh")
+    home = os.path.expanduser('~')
+    w = os.walk(home + "/.ssh")
     for root, dirs, files_list in w:
-        # print(files_list)
         files = files_list
 
     for i in range(0, len(files)-1):
-        file = files[i]
-        result = subprocess.run([f'./scripts/ssh.sh', file], stdout=subprocess.PIPE).stdout
+        filename = files[i]
+
+        contents = ""
+        try:
+            with open(f'{home}/.ssh/{filename}', 'rb') as file:
+                try:
+                    contents = file.read().decode('utf-8')
+                except UnicodeDecodeError:
+                    try_encodings = ['latin-1', 'utf-16']
+                    for encoding in try_encodings:
+                        try:
+                            contents = file.read().decode(encoding)
+                            break
+                        except UnicodeDecodeError:
+                            continue
+                    else:
+                        return []
+        except FileNotFoundError:
+            print(f"File '{filename}' not found in ~/.ssh directory.")
+
         sources.append([])
-        sources[i].append(file)
-        sources[i].append(str(result)) 
+        sources[i].append(filename)
+        sources[i].append(str(contents))
+
+    for source in sources:
+        source[0] = "~/.ssh/" + source[0]
+
     return sources
 
+
 def get_shell_themes():
+    """
+    Returns
+    -------
+    bytes
+        the zipped shell themes
+    """
+
     data = b""
     name = os.path.expanduser('~')+"/shell-themes-cvf"
     shutil.make_archive(name, 'zip', "/usr/share/themes")
     with open(name, "rb") as file:
         data = file.read()
+
+    os.remove(name)
     return data
 
 
 def get_dconf():
+    """
+    Returns
+    -------
+    bytes
+        the dconf file
+    """
+
     return get_bytes(os.path.expanduser('~')+"/.config/dconf/user")
+
 
 def is_substring_in_list(substring, string_list):
     for string in string_list:
         if substring in string:
             return True
     return False
+
 
 def substring_in_list(substring, string_list):
     for string in string_list:
@@ -139,16 +238,19 @@ def substring_in_list(substring, string_list):
     return ""
 
 
-
 def get_git_repos(path):
+    """
+    Returns all the git repos that have a remote, starting from a specific
+    path. The method excludes git submodules.
+
+    Returns
+    -------
+    list
+        git repos as [path, remote-url]
+    """
+
     path = path or "$HOME"  # I dont know if this works
 
-    def run_shell_command(command):
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        if result.returncode == 0:
-            return result.stdout.strip()
-        else:
-            return ""
 
     git_repos = list()
     not_valid_repos = []

@@ -4,10 +4,11 @@ TODO: Auto-mount external drives
 TODO: Browser profiles
 TODO: .desktop files
 TODO: Templates
-TODO: Check distro and shell
-TODO: documentation
 TODO: Shell themes
 TODO: Apt repos in different files
+TODO: dont use shell scripts
+TODO: Write README.md
+TODO: bash completion issue
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
@@ -20,3 +21,6 @@ DONE: Installer
 DONE: Github repos
 DONE: autocompletion
 DONE: man page
+DONE: Check distro and shell
+DONE: documentation
+DONE: better docs
