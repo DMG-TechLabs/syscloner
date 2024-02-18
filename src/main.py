@@ -16,7 +16,12 @@ def restore(args):
         command line arguments
     """
 
-    parser = FileParser(args.filename)
+    try:
+        parser = FileParser(args.filename)
+    except ValueError as e:
+        erro(e)
+        exit(1)
+
     parser.parse()
 
     if not is_compatible(parser.file_metadata):
