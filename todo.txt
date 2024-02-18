@@ -4,11 +4,9 @@ TODO: Auto-mount external drives
 TODO: Browser profiles
 TODO: .desktop files
 TODO: Templates
-TODO: Shell themes
-TODO: Write README.md
-TODO: Test Installer
 TODO: use separator instead of new lines in file and introduce closing tag
 TODO: system compatibility
+TODO: Test Installer
 DONE: System settings
 DONE: Apt packages
 DONE: Gnome extensions (and configs)
@@ -27,3 +25,5 @@ DONE: better docs
 DONE: Apt repos in different files
 DONE: dont use shell scripts
 DONE: bash completion issue
+DONE: Shell themes
+DONE: Write README.md
