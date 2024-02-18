@@ -62,15 +62,21 @@ else
         python3 get-pip.py
 
         if [ $? -ne 0 ]; then
-            rm get-pip.py
-            echo "[INFO] pip installed successfully"
-        else
             echo "[ERRO] Could not install pip. Please install manually before running the script again"
             exit 1
+        else
+            rm get-pip.py
+            echo "[INFO] pip installed successfully"
         fi
     fi
 
     pip install -r requirements.txt
+    
+    if [ $? -ne 0 ]; then
+        echo "[ERRO] Could not install pyinstaller using pip. Plese try installing pyinstaller using your package manager before running the script again"
+        exit 1
+    fi
+
     pyinstaller --onefile src/main.py
 
     if [[ $? == 0 ]]; then
