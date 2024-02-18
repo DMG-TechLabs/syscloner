@@ -161,7 +161,7 @@ class FileBuilder:
         except FileNotFoundError:
             contents += "Error\n"
             erro("Error with shell themes")
-        contents += constants.SEPARATOR + "\n\n\n"
+        contents += "\n\n" + constants.SEPARATOR + "\n\n\n"
         return contents
 
     def __ssh(self):

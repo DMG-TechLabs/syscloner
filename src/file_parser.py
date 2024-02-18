@@ -154,10 +154,7 @@ class FileParser:
 
 
 if __name__ == "__main__":
-    parser = FileParser('./test_ub_gn.cvf')
+    parser = FileParser('./testall_ub_gn.cvf')
     parser.parse()
 
-    for pair in parser.repository_keys:
-        print(pair[0])
-        print(pair[1])
-        print('\n')
+    print(parser.shell_themes)
