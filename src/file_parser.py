@@ -1,4 +1,5 @@
 import constants
+import os
 from logger import erro, info, debu
 
 from metadata import is_metadata, metadata, parse_metadata
@@ -39,7 +40,10 @@ class FileParser:
             path of cvf file to parse
         """
 
-        # TODO: check if file is cvf
+        filename, extension = os.path.splitext(file)
+        if extension != '.cvf':
+            raise ValueError(f"File '{file}' is not cvf")
+
         self.file = open(file, "r")
         try:
             self.__lines = self.file.read().split("\n")
