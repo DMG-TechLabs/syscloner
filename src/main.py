@@ -215,7 +215,7 @@ def main():
     args_parser.add_argument(
             '-v', '--version',
             action='version',
-            version='syscloner 0.1.0 (dev)',
+            version='syscloner 0.1.0 (release)',
             help='print executable version')
 
     args = args_parser.parse_args()
