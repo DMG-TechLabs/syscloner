@@ -208,7 +208,7 @@ def get_shell_themes():
 
     data = b""
     name = os.path.expanduser('~')+"/shell-themes-cvf"
-    shutil.make_archive(name, 'gztar', "/nix/store/1pp4344817h6zsni5w8ic685i4zixd0b-system-path/share/themes")
+    shutil.make_archive(name, 'gztar', "/usr/share/themes")
     with open(name+".tar.gz", "rb") as file:
         data = file.read()
         file.close()
